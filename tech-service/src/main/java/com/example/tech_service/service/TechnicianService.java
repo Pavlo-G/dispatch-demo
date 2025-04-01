@@ -3,6 +3,7 @@ package com.example.tech_service.service;
 import com.example.job_service.model.Technician;
 import com.example.tech_service.entity.TechnicianEntity;
 import com.example.tech_service.repository.TechnicianRepository;
+import com.example.tech_service.util.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 public class TechnicianService {
     @Autowired
     private TechnicianRepository technicianRepository;
+    @Autowired
+    private IdGenerator idGenerator;
 
     public List<Technician> getAllTechnicians() {
         return technicianRepository.findAll().stream()
@@ -27,7 +30,10 @@ public class TechnicianService {
     }
 
     public Technician createTechnician(Technician technician) {
+        String newId = idGenerator.generateUniqueId();
+        technician.setId(newId);
         TechnicianEntity entity = convertToEntity(technician);
+        entity.setId(newId);
         TechnicianEntity savedEntity = technicianRepository.save(entity);
         return convertToTechnician(savedEntity);
     }
