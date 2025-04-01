@@ -1,5 +1,5 @@
 # Use an OpenJDK base image for Java 21
-FROM openjdk:21-jdk-alpine
+FROM amazoncorretto:21.0.4-alpine3.18
 
 # Set the working directory
 WORKDIR /app

@@ -1,12 +1,12 @@
 server:
-  port: 8085
+  port: 8087
   servlet:
-    context-path: /tech-service
+    context-path: /dispatch-service
 spring:
   application:
-    name: tech-service
+    name: dispatch-service
   datasource:
-    url: jdbc:h2:mem:techdb
+    url: jdbc:h2:mem:dispatchdb
     driver-class-name: org.h2.Driver
     username: sa
     password: password

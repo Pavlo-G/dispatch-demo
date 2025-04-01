@@ -4,9 +4,9 @@ package com.example.job_service.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Job")
 public class JobEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     @Lob
     private String jsonData;

@@ -1,0 +1,8 @@
+CREATE TABLE Job (
+    id VARCHAR(255) NOT NULL PRIMARY KEY,
+    json_data CLOB
+);
+
+INSERT INTO Job (id, json_data) VALUES ('JOB1234', '{"id": "JOB1234", "state": "Open", "address": {"streetName": "Main St", "streetNumber": "123", "city": "New York", "province": "NY", "postalCode": "10001"}, "customer": {"firstName": "John", "lastName": "Doe", "contactNumber": "john.doe@example.com", "phoneNumbers": ["123-456-7890"], "address": {"streetName": "Main St", "streetNumber": "123", "city": "New York", "province": "NY", "postalCode": "10001"}}}');
+INSERT INTO Job (id, json_data) VALUES ('JOB5678', '{"id": "JOB5678", "state": "In Progress", "address": {"streetName": "Market St", "streetNumber": "456", "city": "San Francisco", "province": "CA", "postalCode": "94105"}, "customer": {"firstName": "Jane", "lastName": "Smith", "contactNumber": "jane.smith@example.com", "phoneNumbers": ["098-765-4321"], "address": {"streetName": "Market St", "streetNumber": "456", "city": "San Francisco", "province": "CA", "postalCode": "94105"}}}');
+INSERT INTO Job (id, json_data) VALUES ('JOB9101', '{"id": "JOB9101", "state": "Closed", "address": {"streetName": "Broadway", "streetNumber": "789", "city": "Chicago", "province": "IL", "postalCode": "60601"}, "customer": {"firstName": "Jim", "lastName": "Brown", "contactNumber": "jim.brown@example.com", "phoneNumbers": ["555-555-5555"], "address": {"streetName": "Broadway", "streetNumber": "789", "city": "Chicago", "province": "IL", "postalCode": "60601"}}}');
