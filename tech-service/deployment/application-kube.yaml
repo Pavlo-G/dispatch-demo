@@ -1,12 +1,12 @@
 server:
   port: 8080
   servlet:
-    context-path: /job-service
+    context-path: /tech-service
 spring:
   application:
-    name: job-service
+    name: tech-service
   datasource:
-    url: jdbc:h2:mem:jobdb
+    url: jdbc:h2:mem:techdb
     driver-class-name: org.h2.Driver
     username: sa
     password: password

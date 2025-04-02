@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dispatch-service
+  name: tech-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dispatch-service
+      app: tech-service
   template:
     metadata:
       labels:
-        app: dispatch-service
+        app: tech-service
     spec:
       containers:
-        - name: dispatch-service
-          image: dispatch-service:latest
+        - name: tech-service
+          image: tech-service:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
           readinessProbe:
             httpGet:
-              path: /dispatch-service/actuator/health
+              path: /tech-service/actuator/health
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /dispatch-service/actuator/health
+              path: /tech-service/actuator/health
               port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
