@@ -6,9 +6,11 @@ WORKDIR /app
 
 # Copy the build files
 COPY build/libs/dispatch-service-*.jar app.jar
-
+# Copy the application-kube.yaml file to the container
+COPY deployment/application-kube.yaml /app/application-kube.yaml
 # Expose the port the application runs on
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.config.location=file:/app/application-kube.yaml"]
+
