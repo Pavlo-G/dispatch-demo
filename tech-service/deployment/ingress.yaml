@@ -3,10 +3,11 @@ kind: Ingress
 metadata:
   name: tech-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx
   rules:
-    - host: demo.com
+    - host: demo.localhost
       http:
         paths:
           - path: /tech-service

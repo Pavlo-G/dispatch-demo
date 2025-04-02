@@ -22,11 +22,13 @@ spec:
             httpGet:
               path: /dispatch-service/actuator/health
               port: 8080
+              host: demo.localhost
             initialDelaySeconds: 10
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /dispatch-service/actuator/health
               port: 8080
+              host: demo.localhost
             initialDelaySeconds: 30
             periodSeconds: 10
