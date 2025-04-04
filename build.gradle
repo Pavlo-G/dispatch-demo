@@ -1,0 +1,20 @@
+task buildAll(dependsOn: [':dispatch-service:build', ':job-service:build', ':tech-service:build']) {
+}
+
+task testAll(dependsOn: [':dispatch-service:test',':job-service:test',':tech-service:test']){
+}
+
+task buildAllDocker(dependsOn: [':dispatch-service:buildDockerImage',':job-service:buildDockerImage',':tech-service:buildDockerImage'])
+
+task deployAll(dependsOn: [':dispatch-service:deploy',':job-service:deploy',':tech-service:deploy'])
+
+
+task buildAllFresh(dependsOn: [':dispatch-service:build', ':dispatch-service:test',
+                                 ':job-service:build', ':job-service:test',
+                                 ':tech-service:build', ':tech-service:test']) {
+    doLast {
+        subprojects.each {
+            it.gradle.startParameter.refreshDependencies = true
+        }
+    }
+}
