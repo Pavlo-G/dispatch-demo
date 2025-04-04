@@ -1,0 +1,27 @@
+# tech-service/deployment/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tech-service-config
+data:
+  application.yaml: |
+    server:
+      port: 8080
+      servlet:
+        context-path: /tech-service
+    spring:
+      application:
+        name: tech-service
+      datasource:
+        url: jdbc:h2:mem:techdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: password
+        initialization-mode: always
+      h2:
+        console:
+          enabled: true
+      jpa:
+        hibernate:
+          ddl-auto: update
+        show-sql: true
