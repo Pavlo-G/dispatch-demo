@@ -58,9 +58,8 @@ For Windows users, it's recommended to use the [Chocolatey](https://chocolatey.o
     kubectl apply -f deployment.yaml
     kubectl apply -f service.yaml
     kubectl apply -f ingress.yaml
-    cd ../..
     ```
-    or use the gradle task deployAll:
+    or use the gradle task `deployAll`:
     ```powershell
     ./gradlew deployAll
     ```
