@@ -27,24 +27,24 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-task buildDockerImage {
-    doLast {
-        exec {
-            commandLine 'docker', 'build', '-t', "${project.name}:latest", '.'
-        }
-    }
+tasks.register('buildDockerImage') {
+	doLast {
+		exec {
+			commandLine 'docker', 'build', '-t', "${project.name}:latest", '.'
+		}
+	}
 }
 
-task deploy {
+tasks.register('deploy') {
 	doLast {
-        exec {
-            commandLine 'kubectl', 'apply', '-f', "deployment/service.yaml"
+		exec {
+			commandLine 'kubectl', 'apply', '-f', "deployment/service.yaml"
 		}
 		exec {
-            commandLine 'kubectl', 'apply', '-f', "deployment/ingress.yaml"
+			commandLine 'kubectl', 'apply', '-f', "deployment/ingress.yaml"
 		}
 		exec {
-            commandLine 'kubectl', 'apply', '-f', "deployment/deployment.yaml"
+			commandLine 'kubectl', 'apply', '-f', "deployment/deployment.yaml"
 		}
 	}
 }
