@@ -25,3 +25,6 @@ data:
         hibernate:
           ddl-auto: update
         show-sql: true
+    management:
+      server:
+      port: 8080

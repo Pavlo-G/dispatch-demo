@@ -21,18 +21,18 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /app/config
-#          readinessProbe:
-#            httpGet:
-#              path: /job-service/actuator/health
-#              port: 8080
-#            initialDelaySeconds: 10
-#            periodSeconds: 5
-#          livenessProbe:
-#            httpGet:
-#              path: /job-service/actuator/health
-#              port: 8080
-#            initialDelaySeconds: 30
-#            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /job-service/actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /job-service/actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
       volumes: # Add volumes section
         - name: config-volume
           configMap:
