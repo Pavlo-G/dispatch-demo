@@ -46,6 +46,9 @@ tasks.register('deploy') {
 		exec {
 			commandLine 'kubectl', 'apply', '-f', "deployment/deployment.yaml"
 		}
+		exec {
+			commandLine 'kubectl', 'apply', '-f', "deployment/configmap.yaml"
+		}
 	}
 }
 

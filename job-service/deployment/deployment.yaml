@@ -18,6 +18,9 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
 #          readinessProbe:
 #            httpGet:
 #              path: /job-service/actuator/health
@@ -30,3 +33,8 @@ spec:
 #              port: 8080
 #            initialDelaySeconds: 30
 #            periodSeconds: 10
+      volumes: # Add volumes section
+        - name: config-volume
+          configMap:
+            # reference the ConfigMap name created in step 1
+            name: job-service-config
