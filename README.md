@@ -76,3 +76,7 @@ For Windows users, it's recommended to use the [Chocolatey](https://chocolatey.o
     *   Jobs: `http://demo.localhost/job-service/jobs`
 
     You should receive an initial list of technicians or jobs, which are injected into an H2 in-memory database during service startup.
+7. Swagger ui available at:
+    *   Dispatch-service: `http://demo.localhost/dispatch-service/swagger-ui/index.html`
+    *   Job-service: `http://demo.localhost/job-service/swagger-ui/index.html`
+    *   Tech-service: `http://demo.localhost/tech-service/swagger-ui/index.html`
