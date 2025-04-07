@@ -1,6 +1,6 @@
 package com.example.tech_service.service;
 
-import com.example.job_service.model.Technician;
+import com.example.model.Technician;
 import com.example.tech_service.entity.TechnicianEntity;
 import com.example.tech_service.repository.TechnicianRepository;
 import com.example.tech_service.util.IdGenerator;

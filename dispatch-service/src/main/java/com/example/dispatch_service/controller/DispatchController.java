@@ -1,6 +1,6 @@
 package com.example.dispatch_service.controller;
 
-import com.example.job_service.model.Dispatch;
+import com.example.model.Dispatch;
 import com.example.dispatch_service.service.DispatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,12 @@ public class DispatchController {
     private DispatchService dispatchService;
 
     @GetMapping
-    public ResponseEntity<List<Dispatch>> getAllDispatches() {
+    public ResponseEntity<?> getAllDispatches() {
         try {
             List<Dispatch> dispatches = dispatchService.getAllDispatches();
             return new ResponseEntity<>(dispatches, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -34,36 +34,36 @@ public class DispatchController {
     }
 
     @PostMapping
-    public ResponseEntity<Dispatch> createDispatch(@RequestBody Dispatch dispatch) {
+    public ResponseEntity<?> createDispatch(@RequestBody Dispatch dispatch) {
         try {
             Dispatch createdDispatch = dispatchService.createDispatch(dispatch);
             return new ResponseEntity<>(createdDispatch, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dispatch> updateDispatch(@PathVariable String id, @RequestBody Dispatch dispatch) {
+    public ResponseEntity<?> updateDispatch(@PathVariable String id, @RequestBody Dispatch dispatch) {
         try {
             Dispatch updatedDispatch = dispatchService.updateDispatch(id, dispatch);
             return new ResponseEntity<>(updatedDispatch, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDispatch(@PathVariable String id) {
+    public ResponseEntity<?> deleteDispatch(@PathVariable String id) {
         try {
             dispatchService.deleteDispatch(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

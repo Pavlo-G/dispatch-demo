@@ -2,8 +2,10 @@ package com.example.job_service.service;
 
 
 import com.example.job_service.entity.JobEntity;
-import com.example.job_service.model.Job;
+
 import com.example.job_service.repository.JobRepository;
+import com.example.job_service.util.IdGenerator;
+import com.example.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,15 @@ import java.util.stream.Collectors;
 public class JobService {
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private IdGenerator idGenerator;
+
 
     public Job createJob(Job job) {
-        JobEntity jobEntity = new JobEntity();
+        String newId = idGenerator.generateUniqueId();
+        job.setId(newId);
+        JobEntity jobEntity =convertToEntity(job);
+        jobEntity.setId(newId);
         jobEntity.setJsonData(job.toJson());
         return Job.fromJson(jobRepository.save(jobEntity).getJsonData());
     }
@@ -47,5 +55,16 @@ public class JobService {
         JobEntity jobEntity = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found"));
         return Job.fromJson(jobEntity.getJsonData());
+    }
+
+    private Job convertToJob(JobEntity entity) {
+        return Job.fromJson(entity.getJsonData());
+    }
+
+    private JobEntity convertToEntity(Job job) {
+        JobEntity entity = new JobEntity();
+        entity.setId(job.getId());
+        entity.setJsonData(job.toJson());
+        return entity;
     }
 }

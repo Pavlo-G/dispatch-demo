@@ -28,3 +28,6 @@ data:
     management:
       server:
       port: 8080
+    job:
+      service:
+        url: http://job-service.default.svc.cluster.local:8080/job-service

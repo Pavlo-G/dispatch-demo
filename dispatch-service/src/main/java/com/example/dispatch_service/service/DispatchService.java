@@ -1,8 +1,11 @@
 package com.example.dispatch_service.service;
 
+import com.example.dispatch_service.client.JobServiceRestClient;
 import com.example.dispatch_service.entity.DispatchEntity;
 import com.example.dispatch_service.repository.DispatchRepository;
-import com.example.job_service.model.Dispatch;
+import com.example.dispatch_service.util.IdGenerator;
+import com.example.model.Dispatch;
+import com.example.model.Job;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,10 @@ public class DispatchService {
 
     @Autowired
     private DispatchRepository dispatchRepository;
+    @Autowired
+    private JobServiceRestClient jobServiceRestClient;
+    @Autowired
+    private IdGenerator idGenerator;
 
     public List<Dispatch> getAllDispatches() {
         List<DispatchEntity> entities = dispatchRepository.findAll();
@@ -27,7 +34,17 @@ public class DispatchService {
     }
 
     public Dispatch createDispatch(Dispatch dispatch) {
+        String newId = idGenerator.generateUniqueId();
+        dispatch.setId(newId);
+
+        Job jobToUpdate = dispatch.getJob();
+        jobToUpdate.setState("SCHEDULED");
+        jobToUpdate.setDispatchId(dispatch.getId());
+        jobToUpdate.setTechnicianId(dispatch.getTechnician().getId());
+        jobServiceRestClient.updateJob(jobToUpdate.getId(), jobToUpdate);
+
         DispatchEntity entity = convertToEntity(dispatch);
+        entity.setId(newId);
         DispatchEntity savedEntity = dispatchRepository.save(entity);
         return convertToDispatch(savedEntity);
     }
