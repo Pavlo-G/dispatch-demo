@@ -39,7 +39,7 @@ public class JobService {
             JobEntity jobEntity = jobOptional.get();
             jobEntity.setJsonData(job.toJson());
             JobEntity savedJob=jobRepository.save(jobEntity);
-            logger.info("Job created with ID: {}", savedJob.getId());
+            logger.info("Job with ID: {} updated", savedJob.getId());
             return convertToJob(savedJob);
         } else {
             logger.error("Job with ID: {} not found for update", jobId);
