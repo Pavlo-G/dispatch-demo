@@ -1,0 +1,41 @@
+meta {
+  name: CreateJob
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://demo.localhost/job-service/jobs
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "state": "SCHEDULED",
+    "address": {
+      "streetName": "Main St",
+      "streetNumber": "123",
+      "city": "New York",
+      "province": "NY",
+      "postalCode": "10001"
+    },
+    "customer": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "contactNumber": "john.doe@example.com",
+      "phoneNumbers": [
+        "123-456-7777"
+      ],
+      "address": {
+        "streetName": "Main St",
+        "streetNumber": "123",
+        "city": "New York",
+        "province": "NY",
+        "postalCode": "10001"
+      }
+    },
+    "dispatchId": "DISPATCH1234",
+    "technicianId": "TECH2645"
+  }
+}

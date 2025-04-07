@@ -1,0 +1,11 @@
+meta {
+  name: DeleteJob
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://demo.localhost/job-service/jobs/{id}
+  body: none
+  auth: inherit
+}

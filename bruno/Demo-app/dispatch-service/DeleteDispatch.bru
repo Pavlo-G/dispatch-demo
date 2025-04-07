@@ -1,0 +1,11 @@
+meta {
+  name: DeleteDispatch
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://demo.localhost/dispatch-service/dispatches/{id}
+  body: none
+  auth: inherit
+}
