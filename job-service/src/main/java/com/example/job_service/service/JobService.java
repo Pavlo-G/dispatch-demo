@@ -6,6 +6,8 @@ import com.example.job_service.entity.JobEntity;
 import com.example.job_service.repository.JobRepository;
 import com.example.job_service.util.IdGenerator;
 import com.example.model.Job;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JobService {
+    Logger logger = LoggerFactory.getLogger(JobService.class);
     @Autowired
     private JobRepository jobRepository;
     @Autowired
@@ -35,13 +38,20 @@ public class JobService {
         if (jobOptional.isPresent()) {
             JobEntity jobEntity = jobOptional.get();
             jobEntity.setJsonData(job.toJson());
-            return Job.fromJson(jobRepository.save(jobEntity).getJsonData());
+            JobEntity savedJob=jobRepository.save(jobEntity);
+            logger.info("Job created with ID: {}", savedJob.getId());
+            return convertToJob(savedJob);
         } else {
+            logger.error("Job with ID: {} not found for update", jobId);
             throw new RuntimeException("Job not found");
         }
     }
 
     public void deleteJob(String jobId) {
+        if (!jobRepository.existsById(jobId)) {
+            logger.error("Job with ID: {} not found for update", jobId);
+            throw new RuntimeException("Dispatch not found");
+        }
         jobRepository.deleteById(jobId);
     }
 
