@@ -80,6 +80,16 @@ For Windows users, it's recommended to use the [Chocolatey](https://chocolatey.o
     *   Dispatch-service: `http://demo.localhost/dispatch-service/swagger-ui/index.html`
     *   Job-service: `http://demo.localhost/job-service/swagger-ui/index.html`
     *   Tech-service: `http://demo.localhost/tech-service/swagger-ui/index.html`
+8. H2 db console available at:
+    * Dispatch-service:
+        *  url: `http://demo.localhost/dispatch-service/h2-console`
+        *  jdbc url: `jdbc:h2:mem:dispatchdb`
+    * Job-service: 
+        *  url: `http://demo.localhost/job-service/h2-console`
+        *  jdbc url: `jdbc:h2:mem:jobdb`
+    * Tech-service: 
+        *  url: `http://demo.localhost/tech-service/h2-console`
+        *  jdbc url: `jdbc:h2:mem:techdb`
 
 
 ## Some useful commands
