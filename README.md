@@ -80,3 +80,18 @@ For Windows users, it's recommended to use the [Chocolatey](https://chocolatey.o
     *   Dispatch-service: `http://demo.localhost/dispatch-service/swagger-ui/index.html`
     *   Job-service: `http://demo.localhost/job-service/swagger-ui/index.html`
     *   Tech-service: `http://demo.localhost/tech-service/swagger-ui/index.html`
+
+
+## Some useful commands
+1.    **Restart all pods if image is rebuild:** If you rebuild the images, you need to restart the pods to use the new images. You can do this by deleting all pods in the `default` namespace:
+      ```powershell
+      kubectl delete pods --all -n default
+      ```
+2.    **Get logs from pod:**        
+      ```powershell
+       kubectl logs -f <pod name>  --tail=20
+      ```
+
+
+## Bruno(postman) collection
+Bruno collection located in the root of the project. The collection contains requests for all three services, including GET, POST, PUT, and DELETE operations.
