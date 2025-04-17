@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-service
+  labels:
+    app: ui-service
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: ui-service
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ui-service
+    spec:
+      volumes:
+        - name: ui-service-configmapvolume
+          configMap:
+            name: ui-service
+            defaultMode: 420
+      containers:
+        - name: ui-service-container
+          image: ui-service:latest # replace with docker image name
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - name: fms-hybridui-frontend-configmapvolume
+              readOnly: true
+              mountPath: /app/.env
+              subPath: .env
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            env:
+              - name: NODE_ENV
+                value: "development"
