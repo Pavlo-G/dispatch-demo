@@ -36,3 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 /.idea/
+/ui-service/node_modules/
+/ui-service/dist/
+/ui-service/package-lock.json
