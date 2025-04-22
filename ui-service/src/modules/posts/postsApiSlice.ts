@@ -20,7 +20,7 @@ export const postsApiSlice = createApi({
       query: (id) => `/posts/${id.toString()}`,
       providesTags: (_result, _error, id) => [{ type: "Posts", id }],
     }),
-    createPost: build.mutation<Post, Partial<Post>>({
+    createPost: build.mutation<Partial<Post>, Partial<Post>>({
       query: (body) => ({
         url: "/posts/add",
         method: "POST",
