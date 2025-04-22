@@ -5,6 +5,14 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+node_modules
+dist
+dist-ssr
+*.local
+
+.yalc/
+yalc.lock
+
 ### STS ###
 .apt_generated
 .classpath
@@ -35,7 +43,25 @@ out/
 
 ### VS Code ###
 .vscode/
+!.vscode/extensions.json
 /.idea/
+
 /ui-service/node_modules/
 /ui-service/dist/
 /ui-service/package-lock.json
+
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*

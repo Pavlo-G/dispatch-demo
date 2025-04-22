@@ -89,6 +89,6 @@ const eslintConfig = config(
   },
 
   prettierConfig,
-)
+);
 
-export default eslintConfig
+export default eslintConfig;
