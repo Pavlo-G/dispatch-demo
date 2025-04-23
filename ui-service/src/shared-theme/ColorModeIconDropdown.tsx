@@ -38,7 +38,7 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
       />
     );
   }
-  const resolvedMode = (systemMode || mode) as 'light' | 'dark';
+  const resolvedMode = (systemMode ?? mode) as 'light' | 'dark';
   const icon = {
     light: <LightModeIcon />,
     dark: <DarkModeIcon />,

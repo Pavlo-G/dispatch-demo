@@ -54,7 +54,6 @@ describe("postsApiSlice", () => {
     const call = fetchMock.mock.calls[0][0] as Request;
     expect(call.url).toBe("https://dummyjson.com/posts/add");
     expect(call.method).toBe("POST");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = await call.json();
     expect(body).toEqual(createPostPayload);
     expect(result.data).toEqual(createPostPayload);
@@ -76,7 +75,6 @@ describe("postsApiSlice", () => {
     expect(call.method).toBe("PATCH");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...updatePostBody } = updatePostPayload;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = await call.json();
     expect(body).toEqual(updatePostBody);
     expect(result.data).toEqual(updatePostPayload);
