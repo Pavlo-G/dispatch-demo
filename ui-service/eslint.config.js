@@ -53,6 +53,7 @@ const eslintConfig = config(
     },
     rules: {
       "no-undef": [0],
+      "@typescript-eslint/no-misused-promises": "off",
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-invalid-void-type": "off",
       "@typescript-eslint/no-unnecessary-condition": "off",
