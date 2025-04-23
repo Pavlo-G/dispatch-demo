@@ -1,9 +1,12 @@
 import { styled } from "@mui/material/styles";
 import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import MenuContent from "./MenuContent";
+import { Modal } from "@mui/material";
+import UserSwitcherModal from "./UserSwitcherModal";
 
 const drawerWidth = 240;
 
@@ -19,36 +22,44 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+  const [openUserSwitcher, setOpenUserSwitcher] = useState(false);
+  const handleCloseUserSwitcher = () => setOpenUserSwitcher(false);
+
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        display: { xs: "none", md: "block" },
-        [`& .${drawerClasses.paper}`]: {
-          backgroundColor: "background.paper",
-        },
-      }}
-    >
-      <Box
+    <>
+      <Drawer
+        variant="permanent"
         sx={{
-          display: "flex",
-          mt: "calc(var(--template-frame-height, 0px) + 4px)",
-          p: 1.5,
+          display: { xs: "none", md: "block" },
+          [`& .${drawerClasses.paper}`]: {
+            backgroundColor: "background.paper",
+          },
         }}
       >
-        <Typography>Dispatch Demo</Typography>
-      </Box>
-      <Divider />
-      <Box
-        sx={{
-          overflow: "auto",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <MenuContent />
-      </Box>
-    </Drawer>
+        <Box
+          sx={{
+            display: "flex",
+            mt: "calc(var(--template-frame-height, 0px) + 4px)",
+            p: 1.5,
+          }}
+        >
+          <Typography>Dispatch Demo</Typography>
+        </Box>
+        <Divider />
+        <Box
+          sx={{
+            overflow: "auto",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <MenuContent openUserSwitcher={setOpenUserSwitcher}/>
+        </Box>
+      </Drawer>
+      <Modal open={openUserSwitcher} onClose={handleCloseUserSwitcher}>
+        <UserSwitcherModal />
+      </Modal>
+    </>
   );
 }
