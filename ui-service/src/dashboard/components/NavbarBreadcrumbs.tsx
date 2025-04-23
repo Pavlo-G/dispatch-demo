@@ -28,12 +28,14 @@ export default function NavbarBreadcrumbs() {
       separator={<NavigateNextRoundedIcon fontSize="small" />}
     >
       <Typography variant="body1">Dispatch Demo</Typography>
-      <Typography
-        variant="body1"
-        sx={{ color: "text.primary", fontWeight: 600 }}
-      >
-        {lastPart.charAt(0).toUpperCase() + lastPart.slice(1)}
-      </Typography>
+      {lastPart && (
+        <Typography
+          variant="body1"
+          sx={{ color: "text.primary", fontWeight: 600 }}
+        >
+          {lastPart.charAt(0).toUpperCase() + lastPart.slice(1)}
+        </Typography>
+      )}
     </StyledBreadcrumbs>
   );
 }
