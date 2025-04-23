@@ -16,6 +16,14 @@ const mockData = {
   phoneNumber: "123-456-7890",
 };
 
+const skills = [
+  "Wireless",
+  "Fiber",
+  "Cable",
+  "Hardware",
+  "Software",
+];
+
 export default function Profile() {
   const currentUser = mockData;
   return (
@@ -34,34 +42,34 @@ export default function Profile() {
         id="outlined-basic"
         label="ID"
         variant="outlined"
-        value={currentUser.id}
+        defaultValue={currentUser.id}
         disabled
       />
       <TextField
         id="outlined-basic"
         label="First Name"
         variant="outlined"
-        value={currentUser.firstName}
+        defaultValue={currentUser.firstName}
       />
       <TextField
         id="outlined-basic"
         label="Last Name"
         variant="outlined"
-        value={currentUser.lastName}
+        defaultValue={currentUser.lastName}
       />
       <TextField
         id="outlined-basic"
         label="Phone Number"
         variant="outlined"
-        value={currentUser.phoneNumber}
+        defaultValue={currentUser.phoneNumber}
       />
       <FormGroup>
         <FormLabel component="legend">Skills</FormLabel>
-        {currentUser.skills.map((skill, index) => (
+        {skills.map((skill, index) => (
           <FormControlLabel
             key={index}
             control={
-              <Checkbox checked={!!currentUser.skills.includes(skill)} />
+              <Checkbox defaultChecked={!!currentUser.skills.includes(skill)} />
             }
             label={skill}
           />
