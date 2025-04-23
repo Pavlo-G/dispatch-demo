@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import type { GridCellParams, GridRowsProp, GridColDef } from '@mui/x-data-grid';
@@ -32,7 +34,7 @@ function renderSparklineCell(params: GridCellParams<SparkLineData, any>) {
     <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
       <SparkLineChart
         data={value}
-        width={colDef.computedWidth || 100}
+        width={colDef.computedWidth ?? 100}
         height={32}
         plotType="bar"
         showHighlight

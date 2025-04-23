@@ -65,7 +65,6 @@ describe("dispatchesApiSlice", () => {
     const call = fetchMock.mock.calls[0][0] as Request;
     expect(call.url).toBe(dispatchServiceUrl);
     expect(call.method).toBe("POST");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = await call.json();
     expect(body).toEqual(createDispatchPayload);
     expect(result.data).toEqual(createDispatchPayload);
@@ -93,7 +92,6 @@ describe("dispatchesApiSlice", () => {
     expect(call.method).toBe("PUT");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...updateDispatchBody } = updateDispatchPayload;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = await call.json();
     expect(body).toEqual(updateDispatchBody);
     expect(result.data).toEqual(updateDispatchPayload);

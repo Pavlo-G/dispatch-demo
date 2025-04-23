@@ -45,7 +45,7 @@ function ButtonField(props: ButtonFieldProps) {
       startIcon={<CalendarTodayRoundedIcon fontSize="small" />}
       sx={{ minWidth: 'fit-content' }}
     >
-      {label ? label : 'Pick a date'}
+      {label ?? 'Pick a date'}
     </Button>
   );
 }

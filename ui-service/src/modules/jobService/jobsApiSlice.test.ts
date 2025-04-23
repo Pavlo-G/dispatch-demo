@@ -68,7 +68,6 @@ describe("jobsApiSlice", () => {
     expect(call.method).toBe("PUT");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...updateJobBody } = updateJobPayload;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const body = await call.json();
     expect(body).toEqual(updateJobBody);
     expect(result.data).toEqual(updateJobPayload);

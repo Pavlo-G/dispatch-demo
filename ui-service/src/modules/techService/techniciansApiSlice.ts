@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, TECH_SERVICE_PATH } from "src/config";
 import type { Technician } from "src/types/Technician";

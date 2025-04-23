@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, DISPATCH_SERVICE_PATH } from "src/config";
 import type { Dispatch } from "src/types/Dispatch";
