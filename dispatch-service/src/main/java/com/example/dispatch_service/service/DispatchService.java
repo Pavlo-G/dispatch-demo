@@ -41,7 +41,7 @@ public class DispatchService {
         dispatch.setId(newId);
 
         Job jobToUpdate = dispatch.getJob();
-        jobToUpdate.setState("SCHEDULED");
+        jobToUpdate.setState("In Progress");
         jobToUpdate.setDispatchId(dispatch.getId());
         jobToUpdate.setTechnicianId(dispatch.getTechnician().getId());
         jobServiceRestClient.updateJob(jobToUpdate.getId(), jobToUpdate);
