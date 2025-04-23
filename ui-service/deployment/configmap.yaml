@@ -1,5 +1,0 @@
-# dispatch-service/deployment/configmap.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ui-service-config

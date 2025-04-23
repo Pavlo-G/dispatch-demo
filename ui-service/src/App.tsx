@@ -1,8 +1,9 @@
-import "src/App.css";
-import { Posts } from "src/modules/posts/Posts";
+import "./App.css"
+import Dashboard from "./dashboard/Dashboard"
+
 
 export const App = () => (
-  <div className="app">
-    <Posts />
+  <div className="App">
+    <Dashboard />
   </div>
-);
+)

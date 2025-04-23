@@ -12,7 +12,7 @@
 ### Installation
 
 - Clone the repository
-- Run `npm install`
+- Run `npm install --legacy-peer-deps`
 - Run `npm run start`
 - Open browser at `http://localhost:5173`
 
