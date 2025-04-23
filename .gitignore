@@ -9,6 +9,7 @@ node_modules
 dist
 dist-ssr
 *.local
+package-lock.json
 
 .yalc/
 yalc.lock
@@ -45,10 +46,6 @@ out/
 .vscode/
 !.vscode/extensions.json
 /.idea/
-
-/ui-service/node_modules/
-/ui-service/dist/
-/ui-service/package-lock.json
 
 .DS_Store
 *.suo
