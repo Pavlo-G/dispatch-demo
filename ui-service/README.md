@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-- Install [Node.js](https://nodejs.org/) (version 18.18.0 or higher)
+- Install [Node.js](https://nodejs.org/) (version 20.0.0 or higher)
 - Install [VS Code](https://code.visualstudio.com/)
   - Install [ESLint](https://github.com/Microsoft/vscode-eslint)
   - Install [Prettier](https://github.com/prettier/prettier-vscode)

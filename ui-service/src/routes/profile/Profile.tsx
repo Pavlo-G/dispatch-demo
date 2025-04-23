@@ -1,4 +1,3 @@
-
 import { Box, Typography, Grid } from "@mui/material";
 import CustomizedDataGrid from "src/dashboard/components/CustomizedDataGrid";
 
