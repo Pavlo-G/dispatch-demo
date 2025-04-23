@@ -1,10 +1,10 @@
-import Badge, { badgeClasses } from '@mui/material/Badge';
-import type { IconButtonProps } from '@mui/material/IconButton';
-import IconButton from '@mui/material/IconButton';
+import Badge, { badgeClasses } from "@mui/material/Badge";
+import type { IconButtonProps } from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";
 
 export type MenuButtonProps = {
   showBadge?: boolean;
-} & IconButtonProps
+} & IconButtonProps;
 
 export default function MenuButton({
   showBadge = false,
