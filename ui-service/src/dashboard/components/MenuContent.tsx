@@ -14,13 +14,13 @@ type listItem = {
   text: string;
   icon: ReactNode;
   route: string;
-}
+};
 
 type listItemProps = {
   item: listItem;
   index: number;
   navigate: (route: string) => void;
-}
+};
 
 const mainListItems: listItem[] = [
   { text: "Jobs", icon: <AssignmentRoundedIcon />, route: "/jobs" },
@@ -35,14 +35,21 @@ const isActive = (route: string) => {
   return window.location.pathname === route;
 };
 
-export const ListItemLink = ({item, index, navigate}: listItemProps) => {
-  return (<ListItem key={index} disablePadding sx={{ display: "block" }}>
-    <ListItemButton selected={isActive(item.route)} onClick={() => { navigate(item.route); }}>
-      <ListItemIcon>{item.icon}</ListItemIcon>
-      <ListItemText primary={item.text} />
-    </ListItemButton>
-</ListItem>)
-}
+export const ListItemLink = ({ item, index, navigate }: listItemProps) => {
+  return (
+    <ListItem key={index} disablePadding sx={{ display: "block" }}>
+      <ListItemButton
+        selected={isActive(item.route)}
+        onClick={() => {
+          navigate(item.route);
+        }}
+      >
+        <ListItemIcon>{item.icon}</ListItemIcon>
+        <ListItemText primary={item.text} />
+      </ListItemButton>
+    </ListItem>
+  );
+};
 
 export default function MenuContent() {
   const navigate = useNavigate();
@@ -50,12 +57,22 @@ export default function MenuContent() {
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
       <List dense>
         {mainListItems.map((item, index) => (
-          <ListItemLink key={index} item={item} index={index} navigate={navigate} />
+          <ListItemLink
+            key={index}
+            item={item}
+            index={index}
+            navigate={navigate}
+          />
         ))}
       </List>
       <List dense>
         {secondaryListItems.map((item, index) => (
-          <ListItemLink key={index} item={item} index={index} navigate={navigate} />
+          <ListItemLink
+            key={index}
+            item={item}
+            index={index}
+            navigate={navigate}
+          />
         ))}
       </List>
     </Stack>
