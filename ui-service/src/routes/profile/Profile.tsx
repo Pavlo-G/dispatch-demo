@@ -16,13 +16,14 @@ const mockData = {
   phoneNumber: "123-456-7890",
 };
 
-const skills = [
-  "Wireless",
-  "Fiber",
-  "Cable",
-  "Hardware",
-  "Software",
-];
+const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
+
+const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  const formValues = Object.fromEntries(formData);
+  alert(`This doesn't do anything yet\n \n${JSON.stringify(formValues)}`);
+};
 
 export default function Profile() {
   const currentUser = mockData;
@@ -37,36 +38,42 @@ export default function Profile() {
       }}
       noValidate
       autoComplete="off"
+      onSubmit={handleSubmit}
     >
       <TextField
-        id="outlined-basic"
+        id="id"
+        name="id"
         label="ID"
         variant="outlined"
         defaultValue={currentUser.id}
         disabled
       />
       <TextField
-        id="outlined-basic"
+        id="firstName"
+        name="firstName"
         label="First Name"
         variant="outlined"
         defaultValue={currentUser.firstName}
       />
       <TextField
-        id="outlined-basic"
+        id="lastName"
+        name="lastName"
         label="Last Name"
         variant="outlined"
         defaultValue={currentUser.lastName}
       />
       <TextField
-        id="outlined-basic"
+        id="phoneNumber"
+        name="phoneNumber"
         label="Phone Number"
         variant="outlined"
         defaultValue={currentUser.phoneNumber}
       />
-      <FormGroup>
-        <FormLabel component="legend">Skills</FormLabel>
+      <FormGroup id="skills">
+        <FormLabel>Skills</FormLabel>
         {skills.map((skill, index) => (
           <FormControlLabel
+            name={skill}
             key={index}
             control={
               <Checkbox defaultChecked={!!currentUser.skills.includes(skill)} />
@@ -75,7 +82,9 @@ export default function Profile() {
           />
         ))}
       </FormGroup>
-      <Button variant="contained">Save Changes</Button>
+      <Button variant="contained" type="submit">
+        Save Changes
+      </Button>
     </Box>
   );
 }
