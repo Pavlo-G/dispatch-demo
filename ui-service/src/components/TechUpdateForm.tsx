@@ -7,22 +7,52 @@ import {
   FormLabel,
   Button,
 } from "@mui/material";
+import React from "react";
 import type { Technician } from "src/types/Technician";
 
 const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
-
-const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  const formData = new FormData(event.currentTarget);
-  const formValues = Object.fromEntries(formData);
-  alert(`This doesn't do anything yet\n \n${JSON.stringify(formValues)}`);
-};
 
 type TechUpdateFormType = {
   currentUser?: Technician;
 };
 
 const TechUpdateForm = ({ currentUser }: TechUpdateFormType) => {
+  const [formValues, setFormValues] = React.useState<Technician>({
+    id: currentUser?.id ?? "",
+    firstName: currentUser?.firstName ?? "",
+    lastName: currentUser?.lastName ?? "",
+    phoneNumber: currentUser?.phoneNumber ?? "",
+    skills: currentUser?.skills ?? [],
+  });
+  const handleFormValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { name, value, type } = event.target;
+    if(type === "checkbox") {
+      const checked = event.target.checked;
+        if (checked) {
+            setFormValues((prevValues) => ({
+            ...prevValues,
+            skills: [...prevValues.skills, name],
+            }));
+        } else {
+            setFormValues((prevValues) => ({
+            ...prevValues,
+            skills: prevValues.skills.filter((skill) => skill !== name),
+            }));
+        }
+    } else {
+        setFormValues({ ...formValues, [name]: value });
+    }
+  };
+
+  const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const formValues = Object.fromEntries(formData);
+    alert(`This doesn't do anything yet\n \n${JSON.stringify(formValues)}`);
+  };
+
   return (
     <Box
       component="form"
@@ -41,39 +71,44 @@ const TechUpdateForm = ({ currentUser }: TechUpdateFormType) => {
         name="id"
         label="ID"
         variant="outlined"
-        defaultValue={currentUser?.id}
+        value={formValues.id}
         disabled
+        onChange={handleFormValueChange}
       />
       <TextField
         id="firstName"
         name="firstName"
         label="First Name"
         variant="outlined"
-        defaultValue={currentUser?.firstName}
+        value={formValues.firstName}
+        onChange={handleFormValueChange}
       />
       <TextField
         id="lastName"
         name="lastName"
         label="Last Name"
         variant="outlined"
-        defaultValue={currentUser?.lastName}
+        value={formValues.lastName}
+        onChange={handleFormValueChange}
       />
       <TextField
         id="phoneNumber"
         name="phoneNumber"
         label="Phone Number"
         variant="outlined"
-        defaultValue={currentUser?.phoneNumber}
+        value={formValues.phoneNumber}
+        onChange={handleFormValueChange}
       />
       <FormGroup id="skills">
         <FormLabel>Skills</FormLabel>
         {skills.map((skill, index) => (
           <FormControlLabel
-            name={skill}
             key={`${skill}-${index}`}
             control={
               <Checkbox
-                checked={!!currentUser?.skills.includes(skill)}
+                name={skill}
+                checked={!!formValues.skills.includes(skill)}
+                onChange={handleFormValueChange}
               />
             }
             label={skill}
