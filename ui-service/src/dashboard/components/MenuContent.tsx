@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 import type { listItem } from "src/dashboard/components/ListItemLink";
 import ListItemLink from "src/dashboard/components/ListItemLink";
 
-
 type MenuContentProps = {
   openUserSwitcher: (open: boolean) => void;
 };

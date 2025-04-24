@@ -1,7 +1,5 @@
 import {
   Box,
-  Typography,
-  Grid,
   TextField,
   Checkbox,
   FormControlLabel,
@@ -9,8 +7,6 @@ import {
   FormLabel,
   Button,
 } from "@mui/material";
-import { current } from "@reduxjs/toolkit";
-import CustomizedDataGrid from "src/dashboard/components/CustomizedDataGrid";
 
 const mockData = {
   firstName: "John",
@@ -71,9 +67,7 @@ export default function Profile() {
           />
         ))}
       </FormGroup>
-      <Button variant="contained">
-        Save Changes
-      </Button>
+      <Button variant="contained">Save Changes</Button>
     </Box>
   );
 }

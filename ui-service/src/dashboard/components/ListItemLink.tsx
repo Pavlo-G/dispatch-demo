@@ -1,4 +1,9 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import type { ReactNode } from "react";
 
 export type listItem = {
@@ -37,4 +42,4 @@ export default function ListItemLink({ item, index, navigate }: listItemProps) {
       </ListItemButton>
     </ListItem>
   );
-};
+}

@@ -51,7 +51,7 @@ export default function SideMenuMobile({
           </Stack>
           <Divider />
           <Stack sx={{ flexGrow: 1 }}>
-            <MenuContent openUserSwitcher={setOpenUserSwitcher}/>
+            <MenuContent openUserSwitcher={setOpenUserSwitcher} />
           </Stack>
         </Stack>
       </Drawer>
