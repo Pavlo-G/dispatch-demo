@@ -56,7 +56,7 @@ export default function SideMenuMobile({
         </Stack>
       </Drawer>
       <Modal open={openUserSwitcher} onClose={handleCloseUserSwitcher}>
-        <UserSwitcherModal />
+        <UserSwitcherModal handleCloseUserSwitcher={handleCloseUserSwitcher}/>
       </Modal>
     </>
   );

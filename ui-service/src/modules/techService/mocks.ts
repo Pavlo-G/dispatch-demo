@@ -1,4 +1,6 @@
-export const getTechniciansResponse = [
+import type { Technician } from "src/types/Technician";
+
+export const getTechniciansResponse: Technician[] = [
   {
     firstName: "John",
     lastName: "Doe",
@@ -372,7 +374,7 @@ export const getTechniciansResponse = [
   },
 ];
 
-export const getTechnicianResponse = {
+export const getTechnicianResponse: Technician = {
   firstName: "John",
   lastName: "Doe",
   id: "TECH1243",

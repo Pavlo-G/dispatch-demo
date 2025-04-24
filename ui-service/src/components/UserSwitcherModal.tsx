@@ -2,6 +2,7 @@ import type { SelectChangeEvent } from "@mui/material";
 import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import { useContext } from "react";
 import { UserContext } from "src/App";
+import { getTechniciansResponse } from "src/modules/techService/mocks";
 
 const style = {
   position: "absolute",
@@ -15,31 +16,37 @@ const style = {
   p: 4,
 };
 
-const userList = [
-  { id: "Bert", firstName: "Bert", lastName: "Simpson" },
-  { id: "Lisa", firstName: "Lisa", lastName: "Simpson" },
-  { id: "Bart", firstName: "Bart", lastName: "Simpson" },
-  { id: "Marge", firstName: "Marge", lastName: "Simpson" },
-  { id: "Homer", firstName: "Homer", lastName: "Simpson" },
-];
+type UserSwitcherModalType = {
+  handleCloseUserSwitcher: () => void;
+}
 
-const UserSwitcherModal = () => {
+const userList = getTechniciansResponse;
+
+const UserSwitcherModal = ({
+  handleCloseUserSwitcher,
+}: UserSwitcherModalType) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
   const handleChange = (event: SelectChangeEvent) => {
     if (event.target.value && setCurrentUser) {
-      setCurrentUser(event.target.value);
+      const selectedUser = userList.find(
+        (user) => user.id === event.target.value,
+      );
+      if (selectedUser) {
+        setCurrentUser(selectedUser);
+      }
+      handleCloseUserSwitcher();
     }
   };
 
   return (
     <Box sx={style}>
       <Typography variant="h6" component="h2">
-        Current User: {currentUser}
+        Current User: {currentUser?.id}
       </Typography>
       <Typography sx={{ mt: 2 }}>Select a user to switch to</Typography>
       <FormControl fullWidth>
-        <Select value={currentUser} onChange={handleChange}>
+        <Select value={currentUser?.id} onChange={handleChange}>
           {userList &&
             userList.length > 0 &&
             userList.map((user, index) => (
