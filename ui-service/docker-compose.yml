@@ -1,8 +1,9 @@
 version: "3.4"
 
 services:
-  sampleproject:
-    image: test-docker
+  dispatch-demo:
+    container_name: dispatch-demo
+    image: dispatch-demo
     build:
       context: .
       dockerfile: ./Dockerfile
