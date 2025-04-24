@@ -6,7 +6,7 @@ import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import type { UseDateFieldProps } from "@mui/x-date-pickers/DateField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import type {
   BaseSingleInputFieldProps,
   DateValidationError,
@@ -51,18 +51,33 @@ function ButtonField(props: ButtonFieldProps) {
   );
 }
 
-export default function CustomDatePicker() {
+type CustomDateTimePickerProps = {
+  isDisabled?: boolean;
+  onDateChange?: (date: Dayjs | null) => void;
+};
+
+export default function CustomDateTimePicker({
+  isDisabled = false,
+  onDateChange,
+}: CustomDateTimePickerProps) {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(new Date()));
   const [open, setOpen] = React.useState(false);
 
+  const handleDateChange = (newValue: Dayjs | null) => {
+    setValue(newValue);
+    if (onDateChange) {
+      onDateChange(newValue);
+    }
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
+      <DateTimePicker
         value={value}
         label={value == null ? null : value.format("MMM DD, YYYY")}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
+        disabled={isDisabled}
+        disablePast
+        onChange={handleDateChange}
         slots={{ field: ButtonField }}
         slotProps={{
           field: { setOpen } as any,
@@ -76,7 +91,7 @@ export default function CustomDatePicker() {
         onOpen={() => {
           setOpen(true);
         }}
-        views={["day", "month", "year"]}
+        views={["day", "month", "year", "hours", "minutes"]}
       />
     </LocalizationProvider>
   );

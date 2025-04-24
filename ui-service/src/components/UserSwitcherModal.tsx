@@ -18,7 +18,7 @@ const style = {
 
 type UserSwitcherModalType = {
   handleCloseUserSwitcher: () => void;
-}
+};
 
 const userList = getTechniciansResponse;
 

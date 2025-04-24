@@ -179,4 +179,17 @@ export const datePickersCustomizations: PickersProComponents<Theme> &
       }),
     },
   },
+  MuiMultiSectionDigitalClock: {
+    styleOverrides: {
+      root: {
+        "& .MuiMultiSectionDigitalClockSection-root": {
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+      },
+    },
+  },
 };

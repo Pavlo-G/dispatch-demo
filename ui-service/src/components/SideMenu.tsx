@@ -58,7 +58,7 @@ export default function SideMenu() {
         </Box>
       </Drawer>
       <Modal open={openUserSwitcher} onClose={handleCloseUserSwitcher}>
-        <UserSwitcherModal handleCloseUserSwitcher={handleCloseUserSwitcher}/>
+        <UserSwitcherModal handleCloseUserSwitcher={handleCloseUserSwitcher} />
       </Modal>
     </>
   );

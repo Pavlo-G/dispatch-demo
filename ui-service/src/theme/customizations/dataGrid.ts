@@ -131,6 +131,12 @@ export const dataGridCustomizations: DataGridProComponents<Theme> = {
         justifyContent: "space-between",
       },
       columnHeaderDraggableContainer: { paddingRight: 2 },
+      checkboxInput: {
+        "&.Mui-disabled": {
+          background: gray[200],
+          borderColor: gray[300],
+        },
+      },
     },
   },
 };

@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
+import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import { useNavigate } from "react-router";
 import type { listItem } from "src/components/ListItemLink";
 import ListItemLink from "src/components/ListItemLink";
