@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { Dayjs } from "dayjs";
 import { Button, Grid, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridRowId } from "@mui/x-data-grid";
+import { UserContext } from "src/App";
 import CustomDateTimePicker from "src/components/CustomerDateTimePicker";
+import { useCreateDispatchMutation } from "src/modules/dispatchService/dispatchesApiSlice";
+import { useUpdateJobMutation } from "src/modules/jobService/jobsApiSlice";
 import { columns } from "src/routes/jobs/config";
 import { transformJobsToRows } from "src/routes/jobs/utils/transformJobsToRows";
 import type { Job } from "src/types/Job";
@@ -11,17 +14,44 @@ import { JobState } from "src/types/JobState";
 
 const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
   const [selectedRow, setSelectedRow] = useState<GridRowId>();
-  const [date, setDate] = useState<string>();
+  const [appointmentDateTime, setAppointmentDateTime] = useState<string>();
+  const { currentUser: currentTech } = useContext(UserContext);
   const rows = transformJobsToRows(jobs);
 
-  const handleDateChange = (date: Dayjs | null) => {
-    setDate(date?.toDate().toISOString());
+  const [createDispatch] = useCreateDispatchMutation();
+  const [updateJob] = useUpdateJobMutation();
+
+  const handleDateChange = (appointmentDateTime: Dayjs | null) => {
+    setAppointmentDateTime(appointmentDateTime?.toDate().toISOString());
   };
 
-  const handleDispatchJob = () => {
-    const selectedJob = rows.find((row) => row.id === selectedRow);
-    console.log(selectedJob);
-    console.log(date);
+  const handleDispatchJob = async () => {
+    const selectedRowData = rows.find((row) => row.id === selectedRow);
+    const selectedJob = jobs.find((job) => job.id === selectedRowData?.jobId);
+
+    if (!selectedJob || !appointmentDateTime || !currentTech) {
+      console.warn("Missing required data to dispatch job.");
+      return;
+    }
+    try {
+      const dispatchResult = await createDispatch({
+        appointmentDateTime,
+        job: selectedJob,
+        technician: currentTech,
+      }).unwrap();
+      console.info("Dispatch succeeded:", dispatchResult);
+      try {
+        const jobResult = await updateJob({
+          id: selectedJob.id,
+          state: JobState.InProgress,
+        }).unwrap();
+        console.info("Job updated successfully:", jobResult);
+      } catch (jobError) {
+        console.error("Job update failed:", jobError);
+      }
+    } catch (dispatchError) {
+      console.error("Dispatch failed:", dispatchError);
+    }
   };
 
   return (
@@ -48,7 +78,7 @@ const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
         />
         <Button
           variant="outlined"
-          disabled={!selectedRow || !date}
+          disabled={!selectedRow || !appointmentDateTime}
           onClick={handleDispatchJob}
         >
           Dispatch Job

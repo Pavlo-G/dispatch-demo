@@ -16,6 +16,11 @@
 - Run `npm run start`
 - Open browser at `http://localhost:5173`
 
+### With Docker
+
+- Run `docker compose up`
+- Open browser at `http://localhost:3000`
+
 ## Scripts
 
 - `dev`/`start` - start dev server and open browser

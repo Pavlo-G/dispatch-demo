@@ -6,7 +6,7 @@ import type { Job } from "src/types/Job";
 type GetDispatchParams = {
   id: string;
 };
-type CreateDispatchPayload = Omit<Dispatch, "id" | "job"> & {
+export type CreateDispatchPayload = Omit<Dispatch, "id" | "job"> & {
   job: Job;
 };
 type UpdateDispatchPayload = Pick<Dispatch, "id" | "appointmentDateTime">;
