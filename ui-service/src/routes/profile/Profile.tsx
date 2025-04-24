@@ -7,17 +7,10 @@ import {
   FormLabel,
   Button,
 } from "@mui/material";
+import { getTechnicianResponse } from "src/modules/techService/mocks";
 
-const mockData = {
-  firstName: "John",
-  lastName: "Doe",
-  id: "TECH1243",
-  skills: ["Wireless", "Fiber"],
-  phoneNumber: "123-456-7890",
-};
-
-export default function Profile() {
-  const currentUser = mockData;
+const Profile = () => {
+  const currentUser = getTechnicianResponse;
   return (
     <Box
       component="form"
@@ -59,7 +52,7 @@ export default function Profile() {
         <FormLabel component="legend">Skills</FormLabel>
         {currentUser.skills.map((skill, index) => (
           <FormControlLabel
-            key={index}
+            key={`${skill}-${index}`}
             control={
               <Checkbox checked={!!currentUser.skills.includes(skill)} />
             }
@@ -70,4 +63,6 @@ export default function Profile() {
       <Button variant="contained">Save Changes</Button>
     </Box>
   );
-}
+};
+
+export default Profile;

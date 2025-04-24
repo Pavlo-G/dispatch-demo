@@ -4,19 +4,19 @@ import type {} from "@mui/x-data-grid-pro/themeAugmentation";
 import type {} from "@mui/x-tree-view/themeAugmentation";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import AppNavbar from "./components/AppNavbar";
-import SideMenu from "./components/SideMenu";
-import AppTheme from "../shared-theme/AppTheme";
+import AppNavbar from "./AppNavbar";
+import SideMenu from "./SideMenu";
+import AppTheme from "../theme/AppTheme";
 import {
   chartsCustomizations,
   dataGridCustomizations,
   datePickersCustomizations,
   treeViewCustomizations,
-} from "./theme/customizations";
+} from "../theme/customizations";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import AppRoutes from "src/routes/AppRoutes";
 import { alpha, Stack } from "@mui/material";
-import Header from "./components/Header";
+import Header from "./Header";
 
 const xThemeComponents = {
   ...chartsCustomizations,

@@ -23,7 +23,7 @@ const userList = [
   { id: "Homer", firstName: "Homer", lastName: "Simpson" },
 ];
 
-export default function UserSwitcherModal() {
+const UserSwitcherModal = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -42,8 +42,8 @@ export default function UserSwitcherModal() {
         <Select value={currentUser} onChange={handleChange}>
           {userList &&
             userList.length > 0 &&
-            userList.map((user) => (
-              <MenuItem value={user.id}>
+            userList.map((user, index) => (
+              <MenuItem key={`${user.id}-${index}`} value={user.id}>
                 {user.firstName} {user.lastName} ({user.id})
               </MenuItem>
             ))}
@@ -51,4 +51,6 @@ export default function UserSwitcherModal() {
       </FormControl>
     </Box>
   );
-}
+};
+
+export default UserSwitcherModal;

@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
-import CustomizedDataGrid from "src/dashboard/components/CustomizedDataGrid";
+import CustomizedDataGrid from "src/components/CustomizedDataGrid";
 
 export default function Techs() {
   return (

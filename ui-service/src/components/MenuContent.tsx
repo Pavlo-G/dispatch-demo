@@ -4,8 +4,8 @@ import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { useNavigate } from "react-router";
-import type { listItem } from "src/dashboard/components/ListItemLink";
-import ListItemLink from "src/dashboard/components/ListItemLink";
+import type { listItem } from "src/components/ListItemLink";
+import ListItemLink from "src/components/ListItemLink";
 
 type MenuContentProps = {
   openUserSwitcher: (open: boolean) => void;
