@@ -5,6 +5,7 @@ import type { Technician } from "src/types/Technician";
 type GetTechnicianParams = {
   id: string;
 };
+type UpdateTechnicianPayload = Partial<Technician> & Pick<Technician, "id">;
 
 export const techniciansApiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -27,6 +28,20 @@ export const techniciansApiSlice = createApi({
     getTechnician: build.query<Technician, GetTechnicianParams>({
       query: ({ id }) => `${TECH_SERVICE_PATH}/${id}`,
       providesTags: (_result, _error, { id }) => [{ type: "Technicians", id }],
+    }),
+    updateTechnician: build.mutation<
+      Omit<UpdateTechnicianPayload, "id">,
+      UpdateTechnicianPayload
+    >({
+      query: ({ id, ...body }) => ({
+        url: `${TECH_SERVICE_PATH}/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [
+        { type: "Technicians", id },
+        { type: "Technicians", id: "LIST" },
+      ],
     }),
   }),
 });
