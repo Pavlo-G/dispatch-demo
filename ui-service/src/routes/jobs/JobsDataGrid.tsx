@@ -45,7 +45,7 @@ const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
           id: selectedJob.id,
           state: JobState.InProgress,
         }).unwrap();
-        console.info("Job updated successfully:", jobResult);
+        console.info("Job update succeeded:", jobResult);
       } catch (jobError) {
         console.error("Job update failed:", jobError);
       }

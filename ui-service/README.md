@@ -14,7 +14,7 @@
 - Clone the repository
 - Run `npm install --legacy-peer-deps`
 - Run `npm run start`
-- Open browser at `http://localhost:5173`
+- Open browser at `http://localhost:3000`
 
 ### With Docker
 
