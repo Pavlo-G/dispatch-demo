@@ -1,10 +1,10 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { columns } from "src/routes/techs/config";
-import type { Technician } from "src/types/Technician";
 import { transformTechsToRows } from "src/routes/techs/utils/transformTechsToRows";
+import type { Technician } from "src/types/Technician";
 
-const TechsDataGrid = ({ Techs }: { Techs: Technician[] }) => {
-  const rows = transformTechsToRows(Techs);
+const TechsDataGrid = ({ techs }: { techs: Technician[] }) => {
+  const rows = transformTechsToRows(techs);
   return (
     <DataGrid
       checkboxSelection

@@ -10,7 +10,7 @@ const Techs = () => {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ xs: 12, lg: 9 }}>
-          <TechsDataGrid Techs={getTechniciansResponse} />
+          <TechsDataGrid techs={getTechniciansResponse} />
         </Grid>
       </Grid>
     </Box>
