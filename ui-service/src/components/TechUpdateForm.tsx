@@ -7,7 +7,7 @@ import {
   FormLabel,
   Button,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import type { Technician } from "src/types/Technician";
 
 const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
@@ -28,30 +28,33 @@ const TechUpdateForm = ({ currentUser }: TechUpdateFormType) => {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { name, value, type } = event.target;
-    if(type === "checkbox") {
+    if (type === "checkbox") {
       const checked = event.target.checked;
-        if (checked) {
-            setFormValues((prevValues) => ({
-            ...prevValues,
-            skills: [...prevValues.skills, name],
-            }));
-        } else {
-            setFormValues((prevValues) => ({
-            ...prevValues,
-            skills: prevValues.skills.filter((skill) => skill !== name),
-            }));
-        }
+      if (checked) {
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          skills: [...prevValues.skills, name],
+        }));
+      } else {
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          skills: prevValues.skills.filter((skill) => skill !== name),
+        }));
+      }
     } else {
-        setFormValues({ ...formValues, [name]: value });
+      setFormValues({ ...formValues, [name]: value });
     }
   };
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formValues = Object.fromEntries(formData);
-    alert(`This doesn't do anything yet\n \n${JSON.stringify(formValues)}`);
+    alert("This doesn't do anything yet");
   };
+
+  useEffect(() => {
+    if (!currentUser) return;
+    setFormValues(currentUser);
+  }, [currentUser]);
 
   return (
     <Box
