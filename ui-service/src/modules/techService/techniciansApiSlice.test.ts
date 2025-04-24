@@ -49,6 +49,34 @@ describe("techniciansApiSlice", () => {
     expect(result.error).toBeUndefined();
   });
 
+  test("updates a technician successfully via updateTechnician endpoint", async () => {
+    const updateTechnicianPayload = {
+      id: "TECH1243",
+      firstName: "Jane",
+      lastName: "Doe",
+    };
+    fetchMock.mockResponseOnce(JSON.stringify(updateTechnicianPayload), {
+      status: 200,
+    });
+    const store = makeStore();
+    const result = await store.dispatch(
+      techniciansApiSlice.endpoints.updateTechnician.initiate(
+        updateTechnicianPayload,
+      ),
+    );
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const call = fetchMock.mock.calls[0][0] as Request;
+    expect(call.url).toBe(`${techServiceUrl}/${updateTechnicianPayload.id}`);
+    expect(call.method).toBe("PUT");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id, ...updateTechnicianBody } = updateTechnicianPayload;
+    const body = await call.json();
+    expect(body).toEqual(updateTechnicianBody);
+    expect(result.data).toEqual(updateTechnicianPayload);
+    expect(result.error).toBeUndefined();
+  });
+
   test("handles errors correctly via getTechnicians endpoint", async () => {
     fetchMock.mockResponseOnce(
       JSON.stringify({

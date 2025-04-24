@@ -7,14 +7,7 @@ import {
   FormLabel,
   Button,
 } from "@mui/material";
-
-const mockData = {
-  firstName: "John",
-  lastName: "Doe",
-  id: "TECH1243",
-  skills: ["Wireless", "Fiber"],
-  phoneNumber: "123-456-7890",
-};
+import { getTechnicianResponse } from "src/modules/techService/mocks";
 
 const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
 
@@ -25,8 +18,8 @@ const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
   alert(`This doesn't do anything yet\n \n${JSON.stringify(formValues)}`);
 };
 
-export default function Profile() {
-  const currentUser = mockData;
+const Profile = () => {
+  const currentUser = getTechnicianResponse;
   return (
     <Box
       component="form"
@@ -74,7 +67,7 @@ export default function Profile() {
         {skills.map((skill, index) => (
           <FormControlLabel
             name={skill}
-            key={index}
+            key={`${skill}-${index}`}
             control={
               <Checkbox defaultChecked={!!currentUser.skills.includes(skill)} />
             }
@@ -87,4 +80,6 @@ export default function Profile() {
       </Button>
     </Box>
   );
-}
+};
+
+export default Profile;

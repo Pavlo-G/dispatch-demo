@@ -50,6 +50,9 @@ public class TechnicianService {
     }
 
     public void deleteTechnician(String id) {
+        if (!technicianRepository.existsById(id)) {
+            throw new RuntimeException("Technician not found for id: " + id);
+        }
         technicianRepository.deleteById(id);
     }
 

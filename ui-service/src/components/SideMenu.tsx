@@ -54,7 +54,7 @@ export default function SideMenu() {
             flexDirection: "column",
           }}
         >
-          <MenuContent openUserSwitcher={setOpenUserSwitcher}/>
+          <MenuContent openUserSwitcher={setOpenUserSwitcher} />
         </Box>
       </Drawer>
       <Modal open={openUserSwitcher} onClose={handleCloseUserSwitcher}>
