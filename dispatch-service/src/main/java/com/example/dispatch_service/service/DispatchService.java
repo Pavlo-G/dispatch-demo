@@ -41,7 +41,6 @@ public class DispatchService {
         dispatch.setId(newId);
 
         Job jobToUpdate = dispatch.getJob();
-        jobToUpdate.setState("In Progress");
         jobToUpdate.setDispatchId(dispatch.getId());
         jobToUpdate.setTechnicianId(dispatch.getTechnician().getId());
         jobServiceRestClient.updateJob(jobToUpdate.getId(), jobToUpdate);
@@ -56,7 +55,7 @@ public class DispatchService {
     public Dispatch updateDispatch(String id, Dispatch dispatch) {
         if (!dispatchRepository.existsById(id)) {
             logger.error("Dispatch with ID: {} not found for update", id);
-            throw new RuntimeException("Dispatch not found");
+            throw new RuntimeException("Dispatch not found for id: " + id);
         }
         DispatchEntity entity = convertToEntity(dispatch);
         entity.setId(id);
@@ -66,7 +65,7 @@ public class DispatchService {
     public void deleteDispatch(String id) {
         if (!dispatchRepository.existsById(id)) {
             logger.error("Dispatch with ID: {} not found for update", id);
-            throw new RuntimeException("Dispatch not found");
+            throw new RuntimeException("Dispatch not found for id: " + id);
         }
         dispatchRepository.deleteById(id);
     }

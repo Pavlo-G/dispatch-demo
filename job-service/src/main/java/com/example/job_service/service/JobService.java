@@ -43,14 +43,14 @@ public class JobService {
             return convertToJob(savedJob);
         } else {
             logger.error("Job with ID: {} not found for update", jobId);
-            throw new RuntimeException("Job not found");
+            throw new RuntimeException("Job not found for id: " + jobId);
         }
     }
 
     public void deleteJob(String jobId) {
         if (!jobRepository.existsById(jobId)) {
             logger.error("Job with ID: {} not found for update", jobId);
-            throw new RuntimeException("Dispatch not found");
+            throw new RuntimeException("Job not found for id: " + jobId);
         }
         jobRepository.deleteById(jobId);
     }
@@ -63,7 +63,7 @@ public class JobService {
 
     public Job getJobById(String jobId) {
         JobEntity jobEntity = jobRepository.findById(jobId)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> new RuntimeException("Job not found for id: " + jobId));
         return Job.fromJson(jobEntity.getJsonData());
     }
 
