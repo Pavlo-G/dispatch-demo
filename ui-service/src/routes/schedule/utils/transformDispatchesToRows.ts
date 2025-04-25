@@ -8,7 +8,9 @@ export const transformDispatchesToRows = (
   return dispatches.map((dispatch, index) => ({
     id: index + 1,
     jobId: dispatch.job.id,
-    appointmentDateTime: dispatch.appointmentDateTime,
+    appointmentDateTime: new Date(
+      dispatch.appointmentDateTime,
+    ).toLocaleString(),
     address: joinOptionalStrings([
       dispatch.job.address?.streetNumber,
       dispatch.job.address?.streetName,

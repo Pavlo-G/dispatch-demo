@@ -9,6 +9,7 @@ const TechsDataGrid = ({ techs }: { techs: Technician[] }) => {
     <DataGrid
       rows={rows}
       columns={columns}
+      disableRowSelectionOnClick
       getRowClassName={(params) =>
         params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
       }

@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { Box, Typography, Grid } from "@mui/material";
+import { TechContext } from "src/App";
 import ScheduleDataGrid from "src/routes/schedule/ScheduleDataGrid";
+import ScheduleInfo from "src/routes/schedule/ScheduleInfo";
 import { useGetDispatchesQuery } from "src/modules/dispatchService/dispatchesApiSlice";
 import { getDispatchesResponse } from "src/modules/dispatchService/mocks";
 import { formatTechName } from "src/routes/schedule/utils/formatTechName";
-import { TechContext } from "src/App";
 
 const Schedule = () => {
-  const { data, isError } = useGetDispatchesQuery();
   const { currentTech } = useContext(TechContext);
+  const { data, isError } = useGetDispatchesQuery();
+  const dispatches = isError ? getDispatchesResponse : (data ?? []);
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       {!currentTech ? (
@@ -21,10 +23,14 @@ const Schedule = () => {
             Schedule for {formatTechName(currentTech)}
           </Typography>
           <Grid container spacing={2} columns={12}>
-            <Grid size={{ xs: 12, lg: 9 }}>
-              <ScheduleDataGrid
-                dispatches={isError ? getDispatchesResponse : (data ?? [])}
-              />
+            <Grid
+              size={{ xs: 12, lg: dispatches.length === 0 ? 9 : 6 }}
+              sx={{ order: { xs: 2, lg: 1 } }}
+            >
+              <ScheduleDataGrid dispatches={dispatches} />
+            </Grid>
+            <Grid size={{ xs: 12, lg: 3 }} sx={{ order: { xs: 1, lg: 2 } }}>
+              <ScheduleInfo dispatches={dispatches} />
             </Grid>
           </Grid>
         </>

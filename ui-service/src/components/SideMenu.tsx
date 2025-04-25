@@ -45,7 +45,7 @@ export default function SideMenu() {
             p: 1.5,
           }}
         >
-          <Typography>Dispatch Demo - {currentTech?.id}</Typography>
+          <Typography>Logged in as {currentTech?.id}</Typography>
         </Box>
         <Divider />
         <Box
