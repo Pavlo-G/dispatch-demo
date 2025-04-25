@@ -22,7 +22,7 @@ export default function MenuCotent({ openUserSwitcher }: MenuContentProps) {
 
   const secondaryListItems: listItem[] = [
     {
-      text: "Change User",
+      text: "Change Technician",
       icon: <Person2RoundedIcon />,
       onClick: () => {
         openUserSwitcher(true);

@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { Box, Typography, Grid } from "@mui/material";
-import { UserContext } from "src/App";
 import ScheduleDataGrid from "src/routes/schedule/ScheduleDataGrid";
 import { useGetDispatchesQuery } from "src/modules/dispatchService/dispatchesApiSlice";
 import { getDispatchesResponse } from "src/modules/dispatchService/mocks";
 import { formatTechName } from "src/routes/schedule/utils/formatTechName";
+import { TechContext } from "src/App";
 
 const Schedule = () => {
   const { data, isError } = useGetDispatchesQuery();
-  const { currentUser: currentTech } = useContext(UserContext);
+  const { currentTech } = useContext(TechContext);
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       {!currentTech ? (
