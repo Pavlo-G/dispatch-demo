@@ -6,6 +6,8 @@ import com.example.job_service.entity.JobEntity;
 import com.example.job_service.repository.JobRepository;
 import com.example.job_service.util.IdGenerator;
 import com.example.model.Job;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +39,20 @@ public class JobService {
         Optional<JobEntity> jobOptional = jobRepository.findById(jobId);
         if (jobOptional.isPresent()) {
             JobEntity jobEntity = jobOptional.get();
-            jobEntity.setJsonData(job.toJson());
-            JobEntity savedJob=jobRepository.save(jobEntity);
-            logger.info("Job with ID: {} updated", savedJob.getId());
-            return convertToJob(savedJob);
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode existingJson = objectMapper.readTree(jobEntity.getJsonData());
+                JsonNode incomingJson = objectMapper.readTree(job.toJson());
+                JsonNode mergedJson = objectMapper.readerForUpdating(existingJson).readValue(incomingJson);
+
+                jobEntity.setJsonData(mergedJson.toString());
+                JobEntity savedJob = jobRepository.save(jobEntity);
+                logger.info("Job with ID: {} updated", savedJob.getId());
+                return convertToJob(savedJob);
+            } catch (Exception e) {
+                logger.error("Error updating job with ID: {}", jobId, e);
+                throw new RuntimeException("Failed to update job: " + e.getMessage());
+            }
         } else {
             logger.error("Job with ID: {} not found for update", jobId);
             throw new RuntimeException("Job not found for id: " + jobId);

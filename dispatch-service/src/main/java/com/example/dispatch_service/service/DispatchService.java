@@ -7,6 +7,8 @@ import com.example.dispatch_service.repository.DispatchRepository;
 import com.example.dispatch_service.util.IdGenerator;
 import com.example.model.Dispatch;
 import com.example.model.Job;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +55,29 @@ public class DispatchService {
     }
 
     public Dispatch updateDispatch(String id, Dispatch dispatch) {
-        if (!dispatchRepository.existsById(id)) {
+        Optional<DispatchEntity> dispatchOptional = dispatchRepository.findById(id);
+        if (dispatchOptional.isPresent()) {
+            DispatchEntity dispatchEntity = dispatchOptional.get();
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode existingJson = objectMapper.readTree(dispatchEntity.getJsonData());
+                JsonNode incomingJson = objectMapper.readTree(dispatch.toJson());
+                JsonNode mergedJson = objectMapper.readerForUpdating(existingJson).readValue(incomingJson);
+
+                dispatchEntity.setJsonData(mergedJson.toString());
+                DispatchEntity savedDispatch = dispatchRepository.save(dispatchEntity);
+                logger.info("Dispatch with ID: {} updated", savedDispatch.getId());
+                return convertToDispatch(savedDispatch);
+            } catch (Exception e) {
+                logger.error("Error updating dispatch with ID: {}", id, e);
+                throw new RuntimeException("Failed to update dispatch: " + e.getMessage());
+            }
+        } else {
             logger.error("Dispatch with ID: {} not found for update", id);
             throw new RuntimeException("Dispatch not found for id: " + id);
         }
-        DispatchEntity entity = convertToEntity(dispatch);
-        entity.setId(id);
-        DispatchEntity updatedEntity = dispatchRepository.save(entity);
-        return convertToDispatch(updatedEntity);
     }
+
     public void deleteDispatch(String id) {
         if (!dispatchRepository.existsById(id)) {
             logger.error("Dispatch with ID: {} not found for update", id);
