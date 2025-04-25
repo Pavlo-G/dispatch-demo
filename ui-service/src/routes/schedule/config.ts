@@ -6,7 +6,7 @@ export const columns: GridColDef[] = [
   { field: "jobId", headerName: "Job ID", flex: 0.5, minWidth: 100 },
   {
     field: "appointmentDateTime",
-    headerName: "Appointment Date/Time",
+    headerName: "Appointment Date",
     flex: 1,
     minWidth: 100,
   },

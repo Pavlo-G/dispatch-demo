@@ -5,6 +5,7 @@ import { getJobsResponse } from "src/modules/jobService/mocks";
 
 const Jobs = () => {
   const { data, isError } = useGetJobsQuery();
+  const jobs = isError ? getJobsResponse : (data ?? []);
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
@@ -12,7 +13,7 @@ const Jobs = () => {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ xs: 12, lg: 9 }}>
-          <JobsDataGrid jobs={isError ? getJobsResponse : (data ?? [])} />
+          <JobsDataGrid jobs={jobs} />
         </Grid>
       </Grid>
     </Box>
