@@ -21,7 +21,6 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
-
 #          readinessProbe:
 #            httpGet:
 #              path: /

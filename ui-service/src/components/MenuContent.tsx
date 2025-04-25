@@ -2,6 +2,7 @@ import List from "@mui/material/List";
 import Stack from "@mui/material/Stack";
 import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
+import CalendarTodayRounded from "@mui/icons-material/CalendarTodayRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import { useNavigate } from "react-router";
@@ -15,6 +16,7 @@ type MenuContentProps = {
 export default function MenuCotent({ openUserSwitcher }: MenuContentProps) {
   const mainListItems: listItem[] = [
     { text: "Jobs", icon: <AssignmentRoundedIcon />, route: "/jobs" },
+    { text: "Schedule", icon: <CalendarTodayRounded />, route: "/schedule" },
     { text: "Techs", icon: <PeopleRoundedIcon />, route: "/techs" },
   ];
 

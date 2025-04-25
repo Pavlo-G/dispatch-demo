@@ -81,7 +81,7 @@ const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
         <Button
           variant="outlined"
           disabled={!selectedRow || !appointmentDateTime}
-          onClick={handleDispatchJob}
+          onClick={() => void handleDispatchJob()}
         >
           Dispatch Job
         </Button>
