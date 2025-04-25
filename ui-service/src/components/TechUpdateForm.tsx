@@ -13,16 +13,16 @@ import type { Technician } from "src/types/Technician";
 const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
 
 type TechUpdateFormType = {
-  currentUser?: Technician;
+  currentTech?: Technician;
 };
 
-const TechUpdateForm = ({ currentUser }: TechUpdateFormType) => {
+const TechUpdateForm = ({ currentTech }: TechUpdateFormType) => {
   const [formValues, setFormValues] = React.useState<Technician>({
-    id: currentUser?.id ?? "",
-    firstName: currentUser?.firstName ?? "",
-    lastName: currentUser?.lastName ?? "",
-    phoneNumber: currentUser?.phoneNumber ?? "",
-    skills: currentUser?.skills ?? [],
+    id: currentTech?.id ?? "",
+    firstName: currentTech?.firstName ?? "",
+    lastName: currentTech?.lastName ?? "",
+    phoneNumber: currentTech?.phoneNumber ?? "",
+    skills: currentTech?.skills ?? [],
   });
   const handleFormValueChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -52,9 +52,9 @@ const TechUpdateForm = ({ currentUser }: TechUpdateFormType) => {
   };
 
   useEffect(() => {
-    if (!currentUser) return;
-    setFormValues(currentUser);
-  }, [currentUser]);
+    if (!currentTech) return;
+    setFormValues(currentTech);
+  }, [currentTech]);
 
   return (
     <Box

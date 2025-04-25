@@ -1,7 +1,7 @@
 import type { SelectChangeEvent } from "@mui/material";
 import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import { useContext } from "react";
-import { UserContext } from "src/App";
+import { TechContext } from "src/App";
 import { getTechniciansResponse } from "src/modules/techService/mocks";
 
 const style = {
@@ -25,15 +25,15 @@ const userList = getTechniciansResponse;
 const UserSwitcherModal = ({
   handleCloseUserSwitcher,
 }: UserSwitcherModalType) => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentTech, setCurrentTech } = useContext(TechContext);
 
   const handleChange = (event: SelectChangeEvent) => {
-    if (event.target.value && setCurrentUser) {
+    if (event.target.value && setCurrentTech) {
       const selectedUser = userList.find(
         (user) => user.id === event.target.value,
       );
       if (selectedUser) {
-        setCurrentUser(selectedUser);
+        setCurrentTech(selectedUser);
       }
       handleCloseUserSwitcher();
     }
@@ -42,11 +42,11 @@ const UserSwitcherModal = ({
   return (
     <Box sx={style}>
       <Typography variant="h6" component="h2">
-        Current User: {currentUser?.id}
+        Current User: {currentTech?.id}
       </Typography>
       <Typography sx={{ mt: 2 }}>Select a user to switch to</Typography>
       <FormControl fullWidth>
-        <Select value={currentUser?.id} onChange={handleChange}>
+        <Select value={currentTech?.id} onChange={handleChange}>
           {userList &&
             userList.length > 0 &&
             userList.map((user, index) => (

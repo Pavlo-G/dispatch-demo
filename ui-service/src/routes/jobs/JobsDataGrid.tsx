@@ -3,7 +3,7 @@ import type { Dayjs } from "dayjs";
 import { Button, Grid, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridRowId } from "@mui/x-data-grid";
-import { UserContext } from "src/App";
+import { TechContext } from "src/App";
 import CustomDateTimePicker from "src/components/CustomerDateTimePicker";
 import { useCreateDispatchMutation } from "src/modules/dispatchService/dispatchesApiSlice";
 import { useUpdateJobMutation } from "src/modules/jobService/jobsApiSlice";
@@ -15,7 +15,7 @@ import { JobState } from "src/types/JobState";
 const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
   const [selectedRow, setSelectedRow] = useState<GridRowId>();
   const [appointmentDateTime, setAppointmentDateTime] = useState<string>();
-  const { currentUser: currentTech } = useContext(UserContext);
+  const { currentTech } = useContext(TechContext);
   const rows = transformJobsToRows(jobs);
 
   const [createDispatch] = useCreateDispatchMutation();

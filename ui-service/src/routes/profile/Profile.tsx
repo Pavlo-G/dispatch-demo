@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { UserContext } from "src/App";
+import { TechContext } from "src/App";
 import TechUpdateForm from "src/components/TechUpdateForm";
 
 const Profile = () => {
-  const { currentUser } = useContext(UserContext);
-  console.info("currentUser", currentUser);
-  return <TechUpdateForm currentUser={currentUser} />;
+  const { currentTech } = useContext(TechContext);
+  return <TechUpdateForm currentTech={currentTech} />;
 };
 
 export default Profile;

@@ -7,7 +7,6 @@ const TechsDataGrid = ({ techs }: { techs: Technician[] }) => {
   const rows = transformTechsToRows(techs);
   return (
     <DataGrid
-      checkboxSelection
       rows={rows}
       columns={columns}
       getRowClassName={(params) =>
