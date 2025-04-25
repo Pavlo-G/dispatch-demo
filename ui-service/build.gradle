@@ -1,0 +1,32 @@
+plugins {
+    id 'base'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+
+tasks.register('buildDockerImage') {
+	doLast {
+		exec {
+			commandLine 'docker', 'build', '-t', "${project.name}:latest", '.'
+		}
+	}
+}
+
+tasks.register('deploy') {
+	doLast {
+		exec {
+			commandLine 'kubectl', 'apply', '-f', "deployment/service.yaml"
+		}
+		exec {
+			commandLine 'kubectl', 'apply', '-f', "deployment/ingress.yaml"
+		}
+		exec {
+			commandLine 'kubectl', 'apply', '-f', "deployment/deployment.yaml"
+		}
+//		exec {
+//			commandLine 'kubectl', 'apply', '-f', "deployment/configmap.yaml"
+//		}
+	}
+}

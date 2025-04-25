@@ -4,6 +4,10 @@ import com.example.model.Technician;
 import com.example.tech_service.entity.TechnicianEntity;
 import com.example.tech_service.repository.TechnicianRepository;
 import com.example.tech_service.util.IdGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TechnicianService {
+    Logger logger = LoggerFactory.getLogger(TechnicianService.class);
     @Autowired
     private TechnicianRepository technicianRepository;
     @Autowired
@@ -39,13 +44,26 @@ public class TechnicianService {
     }
 
     public Technician updateTechnician(String id, Technician technician) {
-        if (technicianRepository.existsById(id)) {
-            TechnicianEntity entity = convertToEntity(technician);
-            entity.setId(id);
-            TechnicianEntity updatedEntity = technicianRepository.save(entity);
-            return convertToTechnician(updatedEntity);
+        Optional<TechnicianEntity> technicianOptional = technicianRepository.findById(id);
+        if (technicianOptional.isPresent()) {
+            TechnicianEntity technicianEntity = technicianOptional.get();
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode existingJson = objectMapper.readTree(technicianEntity.getJsonData());
+                JsonNode incomingJson = objectMapper.readTree(technician.toJson());
+                JsonNode mergedJson = objectMapper.readerForUpdating(existingJson).readValue(incomingJson);
+
+                technicianEntity.setJsonData(mergedJson.toString());
+                TechnicianEntity savedTechnician = technicianRepository.save(technicianEntity);
+                logger.info("Technician with ID: {} updated", savedTechnician.getId());
+                return convertToTechnician(savedTechnician);
+            } catch (Exception e) {
+                logger.error("Error updating technician with ID: {}", id, e);
+                throw new RuntimeException("Failed to update technician: " + e.getMessage());
+            }
         } else {
-            throw new RuntimeException("Technician not found");
+            logger.error("Technician with ID: {} not found for update", id);
+            throw new RuntimeException("Technician not found for id: " + id);
         }
     }
 

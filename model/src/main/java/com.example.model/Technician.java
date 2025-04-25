@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.Set;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(
@@ -15,7 +16,7 @@ public class Technician {
     private String firstName;
     private String lastName;
     private String id;
-    private List<String> skills;
+    private Set<String> skills;
     private String phoneNumber;
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -46,11 +47,11 @@ public class Technician {
         this.id = id;
     }
 
-    public List<String> getSkills() {
-        return this.skills;
+    public Set<String> getSkills() {
+        return skills;
     }
 
-    public void setSkills(List<String> skills) {
+    public void setSkills(Set<String> skills) {
         this.skills = skills;
     }
 

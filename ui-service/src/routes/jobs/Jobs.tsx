@@ -12,7 +12,7 @@ const Jobs = () => {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ xs: 12, lg: 9 }}>
-          <JobsDataGrid jobs={isError ? getJobsResponse : data ?? []} />
+          <JobsDataGrid jobs={isError ? getJobsResponse : (data ?? [])} />
         </Grid>
       </Grid>
     </Box>
