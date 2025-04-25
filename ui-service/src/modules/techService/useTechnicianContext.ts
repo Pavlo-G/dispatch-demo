@@ -8,22 +8,22 @@ export type TechContextType = {
 };
 
 const useTechnicianContext = () => {
-  const { data: allTechs, isLoading } = useGetTechniciansQuery();
+  const { data: allTechsdata, isLoading } = useGetTechniciansQuery();
 
   const [currentTech, setCurrentTech] = useState<Technician | undefined>(
     undefined,
   );
 
   const contextValue = useMemo(
-    () => ({ currentTech, setCurrentTech, allTechs }),
-    [currentTech, setCurrentTech, allTechs],
+    () => ({ currentTech, setCurrentTech }),
+    [currentTech, setCurrentTech],
   );
 
   useEffect(() => {
-    if (!isLoading && !currentTech) {
-      setCurrentTech(allTechs?.[0]);
+    if (!isLoading && allTechsdata && allTechsdata.length > 0) {
+      setCurrentTech(allTechsdata[0]);
     }
-  }, [allTechs, currentTech, isLoading]);
+  }, [allTechsdata, isLoading]);
 
   return contextValue;
 };

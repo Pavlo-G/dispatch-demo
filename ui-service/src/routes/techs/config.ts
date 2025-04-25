@@ -1,4 +1,6 @@
 import type { GridColDef } from "@mui/x-data-grid";
+import type { TechsActionsMenuProps } from "src/routes/techs/TechsActionsMenu";
+import { renderActions } from "src/routes/techs/utils/renderActions";
 
 export const columns: GridColDef[] = [
   { field: "techId", headerName: "Tech ID", flex: 0.5, minWidth: 100 },
@@ -26,4 +28,14 @@ export const columns: GridColDef[] = [
     flex: 1.5,
     minWidth: 100,
   },
+   {
+      field: "actions",
+      headerName: "Actions",
+      headerAlign: "right",
+      align: "right",
+      flex: 1,
+      sortable: false,
+      renderCell: (params) =>
+        renderActions(params.value as TechsActionsMenuProps),
+    },
 ];

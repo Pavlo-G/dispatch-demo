@@ -2,7 +2,7 @@ import type { SelectChangeEvent } from "@mui/material";
 import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import { useContext } from "react";
 import { TechContext } from "src/App";
-import { getTechniciansResponse } from "src/modules/techService/mocks";
+import { useGetTechniciansQuery } from "src/modules/techService/techniciansApiSlice";
 
 const style = {
   position: "absolute",
@@ -20,20 +20,18 @@ type UserSwitcherModalType = {
   handleCloseUserSwitcher: () => void;
 };
 
-const userList = getTechniciansResponse;
-
 const UserSwitcherModal = ({
   handleCloseUserSwitcher,
 }: UserSwitcherModalType) => {
   const { currentTech, setCurrentTech } = useContext(TechContext);
-
+  const techs = useGetTechniciansQuery().data;
   const handleChange = (event: SelectChangeEvent) => {
-    if (event.target.value && setCurrentTech) {
-      const selectedUser = userList.find(
-        (user) => user.id === event.target.value,
+    if (event.target.value && setCurrentTech && techs) {
+      const selectedTech = techs.find(
+        (tech) => tech.id === event.target.value,
       );
-      if (selectedUser) {
-        setCurrentTech(selectedUser);
+      if (selectedTech) {
+        setCurrentTech(selectedTech);
       }
       handleCloseUserSwitcher();
     }
@@ -42,16 +40,16 @@ const UserSwitcherModal = ({
   return (
     <Box sx={style}>
       <Typography variant="h6" component="h2">
-        Current User: {currentTech?.id}
+        Current Tech: {currentTech?.id}
       </Typography>
-      <Typography sx={{ mt: 2 }}>Select a user to switch to</Typography>
+      <Typography sx={{ mt: 2 }}>Select a tech to switch to</Typography>
       <FormControl fullWidth>
         <Select value={currentTech?.id} onChange={handleChange}>
-          {userList &&
-            userList.length > 0 &&
-            userList.map((user, index) => (
-              <MenuItem key={`${user.id}-${index}`} value={user.id}>
-                {user.firstName} {user.lastName} ({user.id})
+          {techs &&
+            techs.length > 0 &&
+            techs.map((tech, index) => (
+              <MenuItem key={`${tech.id}-${index}`} value={tech.id}>
+                {tech.firstName} {tech.lastName} ({tech.id})
               </MenuItem>
             ))}
         </Select>

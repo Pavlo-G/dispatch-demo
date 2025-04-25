@@ -8,22 +8,39 @@ import {
   Button,
 } from "@mui/material";
 import React, { useEffect } from "react";
+import {
+  useGetTechnicianQuery,
+  useUpdateTechnicianMutation,
+} from "src/modules/techService/techniciansApiSlice";
+
 import type { Technician } from "src/types/Technician";
 
 const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
 
 type TechUpdateFormType = {
-  currentTech?: Technician;
+  techId?: string;
+  onUpdate?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 };
 
-const TechUpdateForm = ({ currentTech }: TechUpdateFormType) => {
+const TechUpdateForm = ({
+  techId,
+  onUpdate,
+  onSuccess,
+  onError,
+}: TechUpdateFormType) => {
+  const tech = useGetTechnicianQuery({ id: techId ?? "" }).data;
+
+  const [updateTechnician] = useUpdateTechnicianMutation();
   const [formValues, setFormValues] = React.useState<Technician>({
-    id: currentTech?.id ?? "",
-    firstName: currentTech?.firstName ?? "",
-    lastName: currentTech?.lastName ?? "",
-    phoneNumber: currentTech?.phoneNumber ?? "",
-    skills: currentTech?.skills ?? [],
+    id: tech?.id ?? "",
+    firstName: tech?.firstName ?? "",
+    lastName: tech?.lastName ?? "",
+    phoneNumber: tech?.phoneNumber ?? "",
+    skills: tech?.skills ?? [],
   });
+
   const handleFormValueChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -48,19 +65,33 @@ const TechUpdateForm = ({ currentTech }: TechUpdateFormType) => {
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert("This doesn't do anything yet");
+    try {
+      const technicianResult = updateTechnician({
+        id: formValues.id,
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        phoneNumber: formValues.phoneNumber,
+        skills: formValues.skills,
+      }).unwrap();
+      if (onSuccess) onSuccess();
+      console.info("Tech update succeeded:", technicianResult);
+    } catch (technicianError) {
+      if (onError) onError();
+      console.error("Tech update failed:", technicianError);
+    } finally {
+      if (onUpdate) onUpdate();
+    }
   };
 
   useEffect(() => {
-    if (!currentTech) return;
-    setFormValues(currentTech);
-  }, [currentTech]);
+    if (!tech) return;
+    setFormValues(tech);
+  }, [tech]);
 
   return (
     <Box
       component="form"
       sx={{
-        minWidth: "40dvw",
         gap: 2,
         display: "flex",
         flexDirection: "column",
@@ -75,7 +106,11 @@ const TechUpdateForm = ({ currentTech }: TechUpdateFormType) => {
         label="ID"
         variant="outlined"
         value={formValues.id}
-        disabled
+        slotProps={{
+          input: {
+            readOnly: true,
+          },
+        }}
         onChange={handleFormValueChange}
       />
       <TextField

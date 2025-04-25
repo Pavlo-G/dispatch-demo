@@ -6,6 +6,7 @@ type GetTechnicianParams = {
   id: string;
 };
 type UpdateTechnicianPayload = Partial<Technician> & Pick<Technician, "id">;
+type DeleteTechnicianParams = GetTechnicianParams;
 
 export const techniciansApiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -43,8 +44,22 @@ export const techniciansApiSlice = createApi({
         { type: "Technicians", id: "LIST" },
       ],
     }),
+    deleteTechnician: build.mutation<void, DeleteTechnicianParams>({
+      query: ({ id }) => ({
+        url: `${TECH_SERVICE_PATH}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_result, _error, { id }) => [
+        { type: "Technicians", id },
+        { type: "Technicians", id: "LIST" },
+      ],
+    }),
   }),
 });
 
-export const { useGetTechniciansQuery, useGetTechnicianQuery } =
-  techniciansApiSlice;
+export const {
+  useGetTechniciansQuery,
+  useGetTechnicianQuery,
+  useUpdateTechnicianMutation,
+  useDeleteTechnicianMutation,
+} = techniciansApiSlice;
