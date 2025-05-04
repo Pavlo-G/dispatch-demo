@@ -1,14 +1,13 @@
-import { useContext } from "react";
 import { Box, Typography, Grid } from "@mui/material";
-import { TechContext } from "src/App";
-import ScheduleDataGrid from "src/routes/schedule/ScheduleDataGrid";
-import ScheduleInfo from "src/routes/schedule/ScheduleInfo";
 import { useGetDispatchesQuery } from "src/modules/dispatchService/dispatchesApiSlice";
 import { getDispatchesResponse } from "src/modules/dispatchService/mocks";
+import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
+import ScheduleDataGrid from "src/routes/schedule/ScheduleDataGrid";
+import ScheduleInfo from "src/routes/schedule/ScheduleInfo";
 import { formatTechName } from "src/routes/schedule/utils/formatTechName";
 
 const Schedule = () => {
-  const { currentTech } = useContext(TechContext);
+  const { currentTech } = useTechnicianContext();
   const { data, isError } = useGetDispatchesQuery();
   const dispatches = isError ? getDispatchesResponse : (data ?? []);
   return (

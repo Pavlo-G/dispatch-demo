@@ -1,9 +1,9 @@
 import { Box, Typography, Divider, Grid } from "@mui/material";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
-import HomeIcon from "@mui/icons-material/Home";
 import type { Dispatch } from "src/types/Dispatch";
 import { joinOptionalStrings } from "src/utils/joinOptionalStrings";
 

@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { Alert, Collapse } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { TechContext } from "src/App";
-import TechUpdateForm from "src/components/TechUpdateForm";
+import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
+import TechUpdateForm from "src/routes/techs/TechUpdateForm";
 
 const Profile = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
@@ -16,7 +16,7 @@ const Profile = () => {
     }
   }, [openError, openSuccess]);
 
-  const { currentTech } = useContext(TechContext);
+  const { currentTech } = useTechnicianContext();
   return (
     <>
       <TechUpdateForm

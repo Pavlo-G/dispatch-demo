@@ -1,13 +1,13 @@
+import { useState } from "react";
+import { Modal } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
-import { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import MuiDrawer, { drawerClasses } from "@mui/material/Drawer";
 import Typography from "@mui/material/Typography";
 import MenuContent from "./MenuContent";
-import { Modal } from "@mui/material";
 import UserSwitcherModal from "./UserSwitcherModal";
-import { TechContext } from "src/App";
+import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
 
 const drawerWidth = 240;
 
@@ -25,7 +25,7 @@ const Drawer = styled(MuiDrawer)({
 export default function SideMenu() {
   const [openUserSwitcher, setOpenUserSwitcher] = useState(false);
   const handleCloseUserSwitcher = () => setOpenUserSwitcher(false);
-  const { currentTech } = useContext(TechContext);
+  const { currentTech } = useTechnicianContext();
 
   return (
     <>

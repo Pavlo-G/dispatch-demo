@@ -1,12 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import type { Dayjs } from "dayjs";
 import { Button, Grid, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridRowId } from "@mui/x-data-grid";
-import { TechContext } from "src/App";
 import CustomDateTimePicker from "src/components/CustomerDateTimePicker";
 import { useCreateDispatchMutation } from "src/modules/dispatchService/dispatchesApiSlice";
 import { useUpdateJobMutation } from "src/modules/jobService/jobsApiSlice";
+import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
 import { columns } from "src/routes/jobs/config";
 import { transformJobsToRows } from "src/routes/jobs/utils/transformJobsToRows";
 import type { Job } from "src/types/Job";
@@ -15,7 +15,7 @@ import { JobState } from "src/types/JobState";
 const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
   const [selectedRow, setSelectedRow] = useState<GridRowId>();
   const [appointmentDateTime, setAppointmentDateTime] = useState<string>();
-  const { currentTech } = useContext(TechContext);
+  const { currentTech } = useTechnicianContext();
   const rows = transformJobsToRows(jobs);
 
   const [createDispatch] = useCreateDispatchMutation();

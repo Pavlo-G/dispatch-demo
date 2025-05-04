@@ -1,31 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { useGetTechniciansQuery } from "./techniciansApiSlice";
-import type { Technician } from "src/types/Technician";
+import { useContext } from "react";
+import { TechnicianContext } from "src/modules/techService/TechnicianProvider";
 
-export type TechContextType = {
-  currentTech?: Technician;
-  setCurrentTech?: React.Dispatch<React.SetStateAction<Technician | undefined>>;
+export const useTechnicianContext = () => {
+  const context = useContext(TechnicianContext);
+  return context;
 };
-
-const useTechnicianContext = () => {
-  const { data: allTechsdata, isLoading } = useGetTechniciansQuery();
-
-  const [currentTech, setCurrentTech] = useState<Technician | undefined>(
-    undefined,
-  );
-
-  const contextValue = useMemo(
-    () => ({ currentTech, setCurrentTech }),
-    [currentTech, setCurrentTech],
-  );
-
-  useEffect(() => {
-    if (!isLoading && allTechsdata && allTechsdata.length > 0) {
-      setCurrentTech(allTechsdata[0]);
-    }
-  }, [allTechsdata, isLoading]);
-
-  return contextValue;
-};
-
-export default useTechnicianContext;

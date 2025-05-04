@@ -14,9 +14,9 @@ import {
   treeViewCustomizations,
 } from "../theme/customizations";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import AppRoutes from "src/routes/AppRoutes";
 import { alpha, Stack } from "@mui/material";
 import Header from "./Header";
+import AppRoutes from "src/routes/AppRoutes";
 
 const xThemeComponents = {
   ...chartsCustomizations,

@@ -1,18 +1,19 @@
+import { useEffect, useState } from "react";
+import type { ChangeEvent, SyntheticEvent } from "react";
 import {
   Box,
-  TextField,
+  Button,
   Checkbox,
   FormControlLabel,
   FormGroup,
   FormLabel,
-  Button,
+  TextField,
 } from "@mui/material";
-import React, { useEffect } from "react";
 import {
   useGetTechnicianQuery,
   useUpdateTechnicianMutation,
 } from "src/modules/techService/techniciansApiSlice";
-
+import { getTechnicianResponse } from "src/modules/techService/mocks";
 import type { Technician } from "src/types/Technician";
 
 const skills = ["Wireless", "Fiber", "Cable", "Hardware", "Software"];
@@ -30,10 +31,10 @@ const TechUpdateForm = ({
   onSuccess,
   onError,
 }: TechUpdateFormType) => {
-  const tech = useGetTechnicianQuery({ id: techId ?? "" }).data;
-
+  const { data, isError } = useGetTechnicianQuery({ id: techId ?? "" });
+  const tech = isError ? getTechnicianResponse : data;
   const [updateTechnician] = useUpdateTechnicianMutation();
-  const [formValues, setFormValues] = React.useState<Technician>({
+  const [formValues, setFormValues] = useState<Technician>({
     id: tech?.id ?? "",
     firstName: tech?.firstName ?? "",
     lastName: tech?.lastName ?? "",
@@ -41,9 +42,7 @@ const TechUpdateForm = ({
     skills: tech?.skills ?? [],
   });
 
-  const handleFormValueChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleFormValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = event.target;
     if (type === "checkbox") {
       const checked = event.target.checked;
@@ -63,7 +62,7 @@ const TechUpdateForm = ({
     }
   };
 
-  const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const technicianResult = updateTechnician({

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Menu, MenuItem, IconButton } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import type { MouseEvent } from "react";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useDeleteDispatchMutation } from "src/modules/dispatchService/dispatchesApiSlice";
 import { useUpdateJobMutation } from "src/modules/jobService/jobsApiSlice";
 import { JobState } from "src/types/JobState";
@@ -22,7 +23,7 @@ const ScheduleActionsMenu = ({
   const [deleteDispatch] = useDeleteDispatchMutation();
   const [updateJob] = useUpdateJobMutation();
 
-  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 

@@ -1,10 +1,10 @@
+import { useState } from "react";
+import { Modal } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MenuContent from "./MenuContent";
-import { Modal } from "@mui/material";
-import { useState } from "react";
 import UserSwitcherModal from "./UserSwitcherModal";
 
 type SideMenuMobileProps = {

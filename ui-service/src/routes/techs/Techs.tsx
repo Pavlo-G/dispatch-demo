@@ -1,7 +1,7 @@
 import { Box, Typography, Grid } from "@mui/material";
-import TechsDataGrid from "src/routes/techs/TechsDataGrid";
 import { useGetTechniciansQuery } from "src/modules/techService/techniciansApiSlice";
 import { getTechniciansResponse } from "src/modules/techService/mocks";
+import TechsDataGrid from "src/routes/techs/TechsDataGrid";
 
 const Techs = () => {
   const { data, isError } = useGetTechniciansQuery();

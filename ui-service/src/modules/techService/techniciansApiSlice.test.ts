@@ -77,6 +77,22 @@ describe("techniciansApiSlice", () => {
     expect(result.error).toBeUndefined();
   });
 
+  test("deletes a technician successfully via deleteTechnician endpoint", async () => {
+    const id = "TECH1243";
+    fetchMock.mockResponseOnce(null, { status: 204 });
+    const store = makeStore();
+    const result = await store.dispatch(
+      techniciansApiSlice.endpoints.deleteTechnician.initiate({ id }),
+    );
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const call = fetchMock.mock.calls[0][0] as Request;
+    expect(call.url).toBe(`${techServiceUrl}/${id}`);
+    expect(call.method).toBe("DELETE");
+    expect(result.data).toBeNull();
+    expect(result.error).toBeUndefined();
+  });
+
   test("handles errors correctly via getTechnicians endpoint", async () => {
     fetchMock.mockResponseOnce(
       JSON.stringify({

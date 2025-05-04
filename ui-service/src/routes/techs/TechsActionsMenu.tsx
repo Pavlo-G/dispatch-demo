@@ -1,22 +1,13 @@
 import { useState } from "react";
-import { Menu, MenuItem, IconButton, Modal, Box } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import CheckIcon from "@mui/icons-material/Check";
+import type { MouseEvent } from "react";
+import { Box, IconButton, Menu, MenuItem, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useDeleteTechnicianMutation } from "src/modules/techService/techniciansApiSlice";
-import useTechnicianContext from "src/modules/techService/useTechnicianContext";
-import TechUpdateForm from "src/components/TechUpdateForm";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
+import TechUpdateForm from "src/routes/techs/TechUpdateForm";
+
 export type TechsActionsMenuProps = {
   techId?: string;
 };
@@ -26,7 +17,7 @@ const TechsActionsMenu = ({ techId }: TechsActionsMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
 
-  const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -48,12 +39,12 @@ const TechsActionsMenu = ({ techId }: TechsActionsMenuProps) => {
       return;
     }
     try {
-      const deleteResult = await deleteTechnician({
+      const result = await deleteTechnician({
         id: techId,
       }).unwrap();
-      console.info("Deletion succeeded:", deleteResult);
-    } catch (deleteError) {
-      console.error("Deletion failed:", deleteError);
+      console.info("Deletion succeeded:", result);
+    } catch (error) {
+      console.error("Deletion failed:", error);
     } finally {
       handleClose();
     }
@@ -73,7 +64,7 @@ const TechsActionsMenu = ({ techId }: TechsActionsMenuProps) => {
       </IconButton>
       <Menu anchorEl={anchorEl} open={isOpen} onClose={handleClose}>
         <MenuItem onClick={() => setOpenTechUpdate(true)}>
-          <CheckIcon fontSize="small" sx={{ mr: 1 }} />
+          <EditIcon fontSize="small" sx={{ mr: 1 }} />
           Update
         </MenuItem>
         <MenuItem
@@ -85,7 +76,20 @@ const TechsActionsMenu = ({ techId }: TechsActionsMenuProps) => {
         </MenuItem>
       </Menu>
       <Modal open={openTechUpdate} onClose={handleCloseTechUpdate}>
-        <Box sx={style}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid",
+            borderColor: "divider",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
           <TechUpdateForm techId={techId} onUpdate={handleCloseTechUpdate} />
         </Box>
       </Modal>

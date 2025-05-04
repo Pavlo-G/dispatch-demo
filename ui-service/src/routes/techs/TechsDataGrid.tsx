@@ -7,8 +7,8 @@ const TechsDataGrid = ({ techs }: { techs: Technician[] }) => {
   const rows = transformTechsToRows(techs);
   return (
     <DataGrid
-      rows={rows}
       columns={columns}
+      rows={rows}
       disableRowSelectionOnClick
       getRowClassName={(params) =>
         params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
