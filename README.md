@@ -71,16 +71,18 @@ For Windows users, it's recommended to use the [Chocolatey](https://chocolatey.o
         kubectl get ingresses
         ```
 
-6.  **Test the services:** Check if the services are responding correctly by sending GET requests:
+6. **Test the ui service:** Check if ui serice is up and running by opening http://demo.localhost/ in browser.
+7.  **Test the backend services:**
+   Check if the backend services are responding correctly by sending GET requests:
     *   Technicians: `http://demo.localhost/tech-service/technicians`
     *   Jobs: `http://demo.localhost/job-service/jobs`
 
     You should receive an initial list of technicians or jobs, which are injected into an H2 in-memory database during service startup.
-7. Swagger ui available at:
+8. Swagger ui available at:
     *   Dispatch-service: `http://demo.localhost/dispatch-service/swagger-ui/index.html`
     *   Job-service: `http://demo.localhost/job-service/swagger-ui/index.html`
     *   Tech-service: `http://demo.localhost/tech-service/swagger-ui/index.html`
-8. H2 db console available at:
+9. H2 db console available at:
     * Dispatch-service:
         *  url: `http://demo.localhost/dispatch-service/h2-console`
         *  jdbc url: `jdbc:h2:mem:dispatchdb`
