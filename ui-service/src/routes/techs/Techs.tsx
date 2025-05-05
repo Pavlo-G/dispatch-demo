@@ -1,11 +1,12 @@
 import { Box, Typography, Grid } from "@mui/material";
+import { MOCK_ENABLED } from "src/config";
 import { useGetTechniciansQuery } from "src/modules/techService/techniciansApiSlice";
 import { getTechniciansResponse } from "src/modules/techService/mocks";
 import TechsDataGrid from "src/routes/techs/TechsDataGrid";
 
 const Techs = () => {
-  const { data, isError } = useGetTechniciansQuery();
-  const techs = isError ? getTechniciansResponse : (data ?? []);
+  const { data } = useGetTechniciansQuery();
+  const techs = MOCK_ENABLED ? getTechniciansResponse : (data ?? []);
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>

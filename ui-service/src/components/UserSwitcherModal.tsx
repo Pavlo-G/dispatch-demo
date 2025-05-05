@@ -1,5 +1,6 @@
 import type { SelectChangeEvent } from "@mui/material";
 import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
+import { MOCK_ENABLED } from "src/config";
 import { useGetTechniciansQuery } from "src/modules/techService/techniciansApiSlice";
 import { getTechniciansResponse } from "src/modules/techService/mocks";
 import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
@@ -12,8 +13,8 @@ const UserSwitcherModal = ({
   handleCloseUserSwitcher,
 }: UserSwitcherModalType) => {
   const { currentTech, setCurrentTech } = useTechnicianContext();
-  const { data, isError } = useGetTechniciansQuery();
-  const techs = isError ? getTechniciansResponse : (data ?? []);
+  const { data } = useGetTechniciansQuery();
+  const techs = MOCK_ENABLED ? getTechniciansResponse : (data ?? []);
   const handleChange = (event: SelectChangeEvent) => {
     if (event.target.value && setCurrentTech && techs) {
       const selectedTech = techs.find((tech) => tech.id === event.target.value);

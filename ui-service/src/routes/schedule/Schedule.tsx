@@ -1,4 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
+import { MOCK_ENABLED } from "src/config";
 import { useGetDispatchesQuery } from "src/modules/dispatchService/dispatchesApiSlice";
 import { getDispatchesResponse } from "src/modules/dispatchService/mocks";
 import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
@@ -8,8 +9,8 @@ import { formatTechName } from "src/routes/schedule/utils/formatTechName";
 
 const Schedule = () => {
   const { currentTech } = useTechnicianContext();
-  const { data, isError } = useGetDispatchesQuery();
-  const dispatches = isError ? getDispatchesResponse : (data ?? []);
+  const { data } = useGetDispatchesQuery();
+  const dispatches = MOCK_ENABLED ? getDispatchesResponse : (data ?? []);
   return (
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       {!currentTech ? (

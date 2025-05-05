@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ChangeEvent, SyntheticEvent } from "react";
+import { MOCK_ENABLED } from "src/config";
 import {
   Box,
   Button,
@@ -31,8 +32,8 @@ const TechUpdateForm = ({
   onSuccess,
   onError,
 }: TechUpdateFormType) => {
-  const { data, isError } = useGetTechnicianQuery({ id: techId ?? "" });
-  const tech = isError ? getTechnicianResponse : data;
+  const { data } = useGetTechnicianQuery({ id: techId ?? "" });
+  const tech = MOCK_ENABLED ? getTechnicianResponse : data;
   const [updateTechnician] = useUpdateTechnicianMutation();
   const [formValues, setFormValues] = useState<Technician>({
     id: tech?.id ?? "",
