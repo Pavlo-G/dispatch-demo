@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { MouseEvent } from "react";
 import { Box, IconButton, Menu, MenuItem, Modal } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useDeleteTechnicianMutation } from "src/modules/techService/techniciansApiSlice";
@@ -71,7 +71,7 @@ const TechsActionsMenu = ({ techId }: TechsActionsMenuProps) => {
           disabled={currentTech?.id === techId}
           onClick={() => void handleDelete()}
         >
-          <CloseIcon fontSize="small" sx={{ mr: 1 }} />
+          <DeleteIcon fontSize="small" sx={{ mr: 1 }} />
           Delete
         </MenuItem>
       </Menu>
