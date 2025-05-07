@@ -5,14 +5,12 @@ import { apiErrorMiddleware } from "src/app/middleware";
 import { dispatchesApiSlice } from "src/modules/dispatchService/dispatchesApiSlice";
 import { jobsApiSlice } from "src/modules/jobService/jobsApiSlice";
 import { techniciansApiSlice } from "src/modules/techService/techniciansApiSlice";
-import { postsApiSlice } from "src/modules/posts/postsApiSlice";
 import { toastSlice } from "src/modules/toast/toastSlice";
 
 const rootReducer = combineSlices(
   dispatchesApiSlice,
   jobsApiSlice,
   techniciansApiSlice,
-  postsApiSlice,
   toastSlice,
 );
 
@@ -26,7 +24,6 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
         .concat(dispatchesApiSlice.middleware)
         .concat(jobsApiSlice.middleware)
         .concat(techniciansApiSlice.middleware)
-        .concat(postsApiSlice.middleware)
         .concat(apiErrorMiddleware);
     },
     preloadedState,
