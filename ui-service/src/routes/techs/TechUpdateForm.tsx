@@ -63,10 +63,10 @@ const TechUpdateForm = ({
     }
   };
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const technicianResult = updateTechnician({
+      const technicianResult = await updateTechnician({
         id: formValues.id,
         firstName: formValues.firstName,
         lastName: formValues.lastName,
@@ -98,7 +98,7 @@ const TechUpdateForm = ({
       }}
       noValidate
       autoComplete="off"
-      onSubmit={handleSubmit}
+      onSubmit={(event) => void handleSubmit(event)}
     >
       <TextField
         id="id"
