@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Dayjs } from "dayjs";
 import { Button, Grid, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridRowId } from "@mui/x-data-grid";
+import { useAppDispatch } from "src/app/hooks";
 import CustomDateTimePicker from "src/components/CustomerDateTimePicker";
 import { useCreateDispatchMutation } from "src/modules/dispatchService/dispatchesApiSlice";
 import { useUpdateJobMutation } from "src/modules/jobService/jobsApiSlice";
 import { useTechnicianContext } from "src/modules/techService/useTechnicianContext";
+import { showToast } from "src/modules/toast/toastSlice";
 import { columns } from "src/routes/jobs/config";
 import { transformJobsToRows } from "src/routes/jobs/utils/transformJobsToRows";
 import type { Job } from "src/types/Job";
@@ -15,6 +17,8 @@ import { JobState } from "src/types/JobState";
 const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
   const [selectedRow, setSelectedRow] = useState<GridRowId>();
   const [appointmentDateTime, setAppointmentDateTime] = useState<string>();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const dispatch = useAppDispatch();
   const { currentTech } = useTechnicianContext();
   const rows = transformJobsToRows(jobs);
 
@@ -48,6 +52,7 @@ const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
           dispatchId: dispatchResult.id,
         }).unwrap();
         console.info("Job update succeeded:", jobResult);
+        setIsSuccess(true);
       } catch (jobError) {
         console.error("Job update failed:", jobError);
       }
@@ -55,6 +60,18 @@ const JobsDataGrid = ({ jobs }: { jobs: Job[] }) => {
       console.error("Dispatch failed:", dispatchError);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        showToast({
+          message: `Job successfully assigned to ${currentTech?.id ?? "tech"}.`,
+          severity: "success",
+        }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   return (
     <Grid container spacing={1}>
